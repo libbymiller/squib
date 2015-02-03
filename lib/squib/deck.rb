@@ -65,9 +65,9 @@ module Squib
       @img_dir       = '.'
       @progress_bar  = Squib::Progress.new(false)
       @text_hint     = :off
-      cards.times{ @cards << Squib::Card.new(self, @width, @height) }
       show_info(config, layout)
       load_config(config)
+      cards.times{ @cards << Squib::Card.new(self, width, height, @backend) }
       @layout        = LayoutParser.load_layout(layout)
       if block_given?
         instance_eval(&block) # here we go. wheeeee!
@@ -91,6 +91,7 @@ module Squib
     # Load the configuration file, if exists, overriding hardcoded defaults
     # @api private
     def load_config(file)
+      puts "File exists? #{file}: #{File.exists?(file)}"
       if File.exists?(file) && config = YAML.load_file(file)
         Squib::logger.info { "  using config: #{file}" }
         config = Squib::CONFIG_DEFAULTS.merge(config)
@@ -99,6 +100,8 @@ module Squib
         @progress_bar.enabled = config['progress_bars']
         @custom_colors = config['custom_colors']
         @img_dir = config['img_dir']
+        pp config
+        @backend = config['backend'].to_s.downcase.strip
       end
     end
 
@@ -108,6 +111,7 @@ module Squib
     def show_info(config, layout)
       Squib::logger.info "Squib v#{Squib::VERSION}"
       Squib::logger.info "  building #{@cards.size} #{@width}x#{@height} cards"
+      Squib::logger.info "  using #{@backend}"
     end
 
     ##################
