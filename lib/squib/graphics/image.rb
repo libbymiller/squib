@@ -47,19 +47,17 @@ module Squib
       svg = RSVG::Handle.new_from_file(file)
       width = svg.width if width == :native
       height = svg.height if height == :native
-      tmp = Cairo::ImageSurface.new(width, height)
-      tmp_cc = Cairo::Context.new(tmp)
-      tmp_cc.scale(width.to_f / svg.width.to_f, height.to_f / svg.height.to_f)
-      tmp_cc.render_rsvg_handle(svg, id)
       use_cairo do |cc|
         cc.translate(x, y)
         cc.rotate(angle)
-        cc.translate(-1 * x, -1 * y)
         cc.operator = blend unless blend == :none
+        cc.scale(width.to_f / svg.width.to_f, height.to_f / svg.height.to_f)
         if mask.nil?
-          cc.set_source(tmp, x, y)
-          cc.paint(alpha)
+          cc.render_rsvg_handle(svg, id)
         else
+          tmp = Cairo::ImageSurface.new(width, height)
+          tmp_cc = Cairo::Context.new(tmp)
+          tmp_cc.render_rsvg_handle(svg, id)
           cc.set_source_squibcolor(mask)
           cc.mask(tmp, x, y)
         end

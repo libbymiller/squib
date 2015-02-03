@@ -36,6 +36,8 @@ module Squib
     # @api private
     attr_reader :layout, :config
 
+    attr_reader :dir, :prefix, :count_format
+
     # Squib's constructor that sets the immutable properties.
     #
     # This is the starting point for Squib. In providing a block to the constructor, you have access to all of Deck's instance methods.
@@ -59,15 +61,19 @@ module Squib
       @dpi           = dpi
       @width         = Args::UnitConversion.parse width, dpi
       @height        = Args::UnitConversion.parse height, dpi
-      @font          = Squib::SYSTEM_DEFAULTS[:default_font]
+      @font          = SYSTEM_DEFAULTS[:default_font]
       @cards         = []
       @custom_colors = {}
       @img_dir       = '.'
-      @progress_bar  = Squib::Progress.new(false)
+      @progress_bar  = Progress.new(false)
       @text_hint     = :off
+      @backend       = 'memory'
+      @dir           = SYSTEM_DEFAULTS[:dir]
+      @prefix        = SYSTEM_DEFAULTS[:prefix]
+      @count_format  = SYSTEM_DEFAULTS[:count_format]
       show_info(config, layout)
       load_config(config)
-      cards.times{ @cards << Squib::Card.new(self, width, height, @backend) }
+      cards.times{ |i| @cards << Squib::Card.new(self, width, height, @backend, i) }
       @layout        = LayoutParser.load_layout(layout)
       if block_given?
         instance_eval(&block) # here we go. wheeeee!
@@ -91,17 +97,18 @@ module Squib
     # Load the configuration file, if exists, overriding hardcoded defaults
     # @api private
     def load_config(file)
-      puts "File exists? #{file}: #{File.exists?(file)}"
       if File.exists?(file) && config = YAML.load_file(file)
         Squib::logger.info { "  using config: #{file}" }
-        config = Squib::CONFIG_DEFAULTS.merge(config)
-        @dpi = config['dpi'].to_i
-        @text_hint = config['text_hint']
+        config                = Squib::CONFIG_DEFAULTS.merge(config)
+        @dpi                  = config['dpi'].to_i
+        @text_hint            = config['text_hint']
         @progress_bar.enabled = config['progress_bars']
-        @custom_colors = config['custom_colors']
-        @img_dir = config['img_dir']
-        pp config
-        @backend = config['backend'].to_s.downcase.strip
+        @custom_colors        = config['custom_colors']
+        @img_dir              = config['img_dir']
+        @backend              = (config['backend'].to_s.downcase.strip == 'svg') ? :svg : :memory
+        @dir                  = config['dir']
+        @prefix               = config['prefix']
+        @count_format         = config['count_format']
       end
     end
 
