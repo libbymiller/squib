@@ -20,7 +20,6 @@ module Squib
       p = needs(opts, [:range, :paper_width, :paper_height, :file_to_save, :creatable_dir, :margin, :gap, :trim])
       cc = Cairo::Context.new(Cairo::PDFSurface.new("#{p[:dir]}/#{p[:file]}", p[:width], p[:height]))
       file = "#{p[:dir]}/#{p[:file]}"
-      puts file
       cc = Cairo::Context.new(Cairo::PDFSurface.new(file, width, height))
       x = p[:margin]
       y = p[:margin]

@@ -25,6 +25,7 @@ module Squib
                        when :memory
                          Cairo::ImageSurface.new(width, height)
                        when :svg
+                         Dir.mkdir deck.dir unless Dir.exists?(deck.dir)
                          Cairo::SVGSurface.new("#{deck.dir}/#{deck.prefix}#{deck.count_format % index}.svg", width, height)
                        else
                          Squib.logger.fatal "Back end not recognized: '#{backend}'"

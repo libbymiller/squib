@@ -67,7 +67,7 @@ module Squib
       @img_dir       = '.'
       @progress_bar  = Progress.new(false)
       @text_hint     = :off
-      @backend       = 'memory'
+      @backend       = :memory
       @dir           = SYSTEM_DEFAULTS[:dir]
       @prefix        = SYSTEM_DEFAULTS[:prefix]
       @count_format  = SYSTEM_DEFAULTS[:count_format]
