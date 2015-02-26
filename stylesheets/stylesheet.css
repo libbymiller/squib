@@ -110,9 +110,20 @@ header h2 {
   max-width: 100%;
 }
 
-#downloads {
-  margin-bottom: 40px;
+.squibnav{
+  margin-bottom: 30px;
 }
+
+.squibnav a{
+  color: #303030;
+  text-decoration: none;
+  vertical-align: middle;
+}
+
+.squibnav a:hover{
+  background-color: transparent;
+}
+
 
 a.button {
   -moz-border-radius: 30px;

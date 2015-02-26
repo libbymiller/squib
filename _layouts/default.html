@@ -5,9 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Archivo+Black' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
     <link rel="stylesheet" type="text/css" href="stylesheets/pygment_monokai.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="icon" type="image/png" href="images/favicon.png?v=9">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -24,12 +26,13 @@
           <h2>Edit. Compile. Playtest.</h2>
         </header>
 
-        <section id="downloads" class="clearfix">
-          <a href="https://rubygems.org/gems/squib" id="download-zip" class="button"><span>On RubyGems</span></a>
-          <a href="https://github.com/andymeneely/squib" id="view-on-github" class="button"><span>On GitHub</span></a>
-          <a href="doc/frames.html#!file.README.html" id="docs" class="button"><span>Get Started</span></a>
+        <section class="squibnav clearfix">
+          <ul class="nav nav-tabs nav-justified">
+            <li><a href="https://github.com/andymeneely/squib"><i class="fa fa-lg fa-github"></i> Source</span></a></li>
+            <li><a href="doc/frames.html#!file.README.html">   <i class="fa fa-lg fa-book"></i>   Docs</span></a></a></li>
+            <!-- <li><a href="doc/frames.html#!file.README.html">   <i class="fa fa-lg fa-newspaper-o"></i>   Blog</span></a></a></li> -->
+          </ul>
         </section>
-        <hr/>
         <section id="main_content">
           {{ content }}
         </section>
