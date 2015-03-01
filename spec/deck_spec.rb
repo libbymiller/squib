@@ -4,6 +4,7 @@ require 'squib'
 describe Squib::Deck do
 
   it 'initializes with default parameters' do
+    puts Cairo.constants
     d = Squib::Deck.new
     expect(d.width).to eq(825)
     expect(d.height).to eq(1125)
