@@ -63,19 +63,21 @@
 
     <div id="content"><div id='filecontents'><h1>Squib <a href="https://rubygems.org/gems/squib"><img src="https://badge.fury.io/rb/squib.svg" alt="Gem Version"></a> <a href="https://travis-ci.org/andymeneely/squib"><img src="https://secure.travis-ci.org/andymeneely/squib.svg?branch=master" alt="Build Status"></a> <a href="https://gemnasium.com/andymeneely/squib"><img src="https://gemnasium.com/andymeneely/squib.svg" alt="Dependency Status"></a> <a href="https://coveralls.io/r/andymeneely/squib"><img src="https://img.shields.io/coveralls/andymeneely/squib.svg" alt="Coverage Status"></a> <a href="http://inch-ci.org/github/andymeneely/squib"><img src="http://inch-ci.org/github/andymeneely/squib.png?branch=master" alt="Inline docs"></a></h1>
 
-<p>Squib is a Ruby <a href="http://en.wikipedia.org/wiki/Domain-specific_language">DSL</a> for prototyping card and board games. Write a little bit of Ruby, define your deck&#39;s stats, and you can compile your game into a series of images ready for print-and-play or even print-on-demand. Squib is very data-driven and built on the principle of Don&#39;t Repeat Yourself. Think of it like <a href="http://www.nand.it/nandeck/">nanDeck</a> done &quot;the Ruby way&quot;. Squib supports:</p>
+<p>Squib is a Ruby <a href="http://en.wikipedia.org/wiki/Domain-specific_language">DSL</a> for prototyping card and board games. Write a little bit of Ruby, define your deck&#39;s stats, then compile your game into a series of images ready for print-and-play or even print-on-demand. Squib is very data-driven and built on the principle of Don&#39;t Repeat Yourself. Think of it like <a href="http://www.nand.it/nandeck/">nanDeck</a> done &quot;the Ruby way&quot;. Squib supports:</p>
 
 <ul>
 <li>A concise set of rules for laying out your cards</li>
-<li>Loading PNGs and SVGs using <a href="http://cairographics.org/">Cairo</a></li>
+<li>Loading PNGs and SVGs</li>
 <li>Complex text rendering using <a href="http://www.pango.org/">Pango</a></li>
 <li>Reading <code>xlsx</code> and <code>csv</code> files</li>
-<li>Rendering to individual PNGs or PDF sheets</li>
+<li>Rendering to PNGs, PDFs, and SVGs (sheets or individual files)</li>
 <li>Flexible, data-driven layouts in Yaml</li>
-<li>Basic shape drawing</li>
+<li>Basic shape drawing, blending operators, gradients, etc.</li>
 <li>Unit conversion</li>
 <li>The full power of Ruby!</li>
 </ul>
+
+<p>Squib is based on the <a href="http://cairographics.org/">Cairo</a> graphics rendering engine, the library of choice for WebKit, Gecko, Inkscape and many, many others.</p>
 
 <p>Check this out.</p>
 
@@ -587,6 +589,24 @@ child_b:
 
 <p>If your layout file is not found in the current directory, Squib will search for its own set of layout files (here&#39;s the latest the development version <a href="https://github.com/andymeneely/squib/tree/master/lib/squib/layouts">on GitHub</a>. See the <code>layouts.rb</code> sample found <a href="https://github.com/andymeneely/squib/tree/master/samples/">here</a> for some demonstrative examples.</p>
 
+<h2>Backends: Raster vs. Vector</h2>
+
+<p>Under the hood, Cairo has the ability to support a variety of surfaces to draw on, including both raster images stored in memory and vectors stored in SVG files. Thus, Squib supports the ability to handle both. They are options in the configuration file <code>backend: memory</code> or <code>backend: svg</code>.</p>
+
+<p>If you save to a PDF then the backend will determine how your cards are saved too. For <code>memory</code>, the PDF will be filled with compressed raster images and be a larger file (yet it will still print at high quality... see discussion below). For SVG backends, PDFs will be smaller. If you have your deck backed by SVG, then the cards are auto-saved, so there is no <code>save_svg</code> in Squib. (Technically, the operations are stored and then flushed to the SVG file at the very end.)</p>
+
+<p>There are trade-offs that one should consider here.</p>
+
+<ul>
+<li><em>Print quality is <strong>higher</strong> for raster images</em>. This seems counterintuitive at first, but consider where Squib sits in your workflow. It&#39;s the final assembly line for your cards before they get printed. Cairo puts <em>a ton</em> of work into rendering each pixel perfectly when it works with raster images. Printers, on the other hand, don&#39;t think in vectors and will render your paths in their own memory with their own embedded libraries without putting a lot of work into antialiasing and various other graphical esoterica. You may notice that print-on-demand companies such as The Game Crafter <a href="https://www.thegamecrafter.com/help/supported-file-types">only accept raster file types</a>, because they don&#39;t want their customers complaining about printers not rendering vectors with enough care.</li>
+<li><em>PDFs are <strong>smaller</strong> for SVG back ends</em>. If file size is a limitation for you, and it can be for some printers or internet forums, then an SVG back end for vectorized PDFs is the way to go.</li>
+<li><em>Squib is <strong>greedy</strong> with memory</em>. While I&#39;ve tested Squib with big decks on older computers, the <code>memory</code> backend is quite greedy with RAM. If memory is at a premium for you, switching to SVG might help.</li>
+</ul>
+
+<p>Note: you can still load PNGs into an SVG-backed deck and load SVGs into a memory-backed deck. To me, the sweet spot is to keep all of my icons, text, and other stuff in vector form for infinite scaling and then render them all to pixels with Squib.</p>
+
+<p>Fortunately, switching backends in Squib should be as trivial as changing the setting in the config file. So go ahead and experiment with both and see what works for you. See below for how the configuration options work.</p>
+
 <h2>Configuration File</h2>
 
 <p>Squib supports various configuration properties that can be specified in an external file. The <code>config:</code> option in <code>Deck.new</code> can specify an optional configuration file in YML format. The properties there are intended to be immutable for the life of the Deck. The options include:</p>
@@ -596,6 +616,9 @@ child_b:
 <li><code>dpi</code> (Integer, default: 300). Used in calculations when units are used (e.g. for PDF rendering and unit conversion).</li>
 <li><code>hint</code> (ColorString, default: off). Text hints are used to show the boundaries of text boxes. Can be enabled/disabled for individual commands, or set globally with the <code>set</code> command. This setting is overriden by <code>set</code> and individual commands.</li>
 <li><code>custom_colors</code> (Hash of Colors, default: {}). Defines globally-available colors available to the deck that can be specified in commands.</li>
+<li><code>antialias</code> (<code>fast, good, best, none</code>, default: best). Set the algorithm that Cairo will use for antialiasing. Using our benchmarks on large decks, <code>best</code> is only X% slower anyway. For more info see the <a href="http://www.cairographics.org/manual/cairo-cairo-t.html#cairo-antialias-t">Cairo docs</a>.</li>
+<li><code>backend</code> (<code>svg</code> or <code>memory</code>, default: <code>memory</code>). Defines how Cairo will store the operations. Memory is recommended for higher quality rendering.</li>
+<li><code>prefix</code> (default: <code>card_</code>). When using an SVG backend, cards are auto-saved with this prefix and <code>&quot;%02d&quot;</code> numbering format.</li>
 </ul>
 
 <p>The following sample demonstrates the config file.</p>
@@ -744,7 +767,7 @@ child_b:
 </div></div>
 
     <div id="footer">
-  Generated on Mon Feb  2 00:32:02 2015 by
+  Generated on Sat Feb 28 20:54:24 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.0.0).
 </div>
