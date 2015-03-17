@@ -1,14 +1,18 @@
 require 'squib'
 
 def draw_score(x, y, i, angle)
-  rect x: x, y: y, width: 50, height: 50, radius: 15
-  case angle
+  tx,ty = x,y
+  case angle # since rotation of text is around UL corner
   when Math::PI / 2
-    x += 50
+    tx = x + 50
   when Math::PI
-    y += 50
+    ty = y + 50
+    x -= 50
+  when 3 * Math::PI / 2
+    y -= 50
   end
-  text x: x, y: y, width: 50, height: 50,
+  rect x: x,  y: y, width: 50, height: 50, radius: 15
+  text x: tx, y: ty, width: 50, height: 50,
        align: :center, valign: :middle,
        str: i, font: 'Sans Bold 24', angle: angle
 end
@@ -17,7 +21,7 @@ Squib::Deck.new do
   background color: '#ccc'
 
   size     = 50
-  margin   = 5
+  margin   = 15
   gap      = 3
 
   x        = margin
@@ -26,7 +30,7 @@ Squib::Deck.new do
   path = [:east, :south, :west, :north]
   path_idx = 0
   side_idx = 0
-  0.upto(100) do |i|
+  0.upto(66) do |i|
     case path[path_idx]
     when :east
       x = side_idx * (size + gap) + margin
@@ -51,6 +55,15 @@ Squib::Deck.new do
       y = @height - margin - size
       side_idx += 1
       if side_idx >= (@width - 2 * margin) / (size + gap)
+        path_idx += 1
+        side_idx = 1 # don't overlap
+      end
+    when :north
+      angle = 3 * Math::PI / 2
+      x = margin
+      y = @height - side_idx * (size + gap) + margin
+      side_idx += 1
+      if side_idx >= (@height - 3 * margin) / (size + gap)
         path_idx += 1
         side_idx = 1 # don't overlap
       end
