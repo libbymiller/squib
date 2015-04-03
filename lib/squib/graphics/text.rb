@@ -177,8 +177,9 @@ module Squib
         rescue Exception => e
           puts "====EXCEPTION!===="
           puts e
-          puts "If this was a non-invertible matrix error, please see: "
+          puts "If this was a non-invertible matrix error, this is a known issue with a potential workaround. Please report it at: https://github.com/andymeneely/squib/issues/55"
           puts "=================="
+          raise e
         end
         draw_text_hint(cc, x, y, layout, hint, angle)
         extents = { width: layout.extents[1].width / Pango::SCALE,
