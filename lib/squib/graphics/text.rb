@@ -119,6 +119,7 @@ module Squib
         rule          = embed.rules[key]
         spacing       = rule[:width] * Pango::SCALE
         index         = clean_str.index(key)
+        puts "ZERO_WIDTH_CHAR_SIZE: #{ZERO_WIDTH_CHAR_SIZE}"
         str.sub!(key, "<span size=\"#{ZERO_WIDTH_CHAR_SIZE}\">a<span letter_spacing=\"#{spacing.to_i}\">a</span>a</span>")
         layout.markup = str
         clean_str     = layout.text
