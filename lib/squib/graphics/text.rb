@@ -119,7 +119,6 @@ module Squib
         rule          = embed.rules[key]
         spacing       = rule[:width] * Pango::SCALE
         index         = clean_str.index(key)
-        puts "ZERO_WIDTH_CHAR_SIZE: #{ZERO_WIDTH_CHAR_SIZE} for host #{RbConfig::CONFIG['host_os']}"
         str.sub!(key, "<span size=\"#{ZERO_WIDTH_CHAR_SIZE}\">a<span letter_spacing=\"#{spacing.to_i}\">a</span>a</span>")
         layout.markup = str
         clean_str     = layout.text
@@ -178,6 +177,7 @@ module Squib
         rescue Exception => e
           puts "====EXCEPTION!===="
           puts e
+          puts "If this was a non-invertible matrix error, please see: "
           puts "=================="
         end
         draw_text_hint(cc, x, y, layout, hint, angle)
