@@ -105,7 +105,7 @@ module Squib
     # a Cairo transformation matrix that
     ZERO_WIDTH_CHAR_SIZE = 0 # this works on most platforms
     # some platforms make this Pango pixels (1/1024), others a 1 pt font
-    ZERO_WIDTH_CHAR_SIZE = 1 if RbConfig::CONFIG['host_os'] === 'linux'
+    ZERO_WIDTH_CHAR_SIZE = 1 if RbConfig::CONFIG['host_os'] === 'linux-gnu'
 
     # :nodoc:
     # @api private
