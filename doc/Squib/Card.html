@@ -112,6 +112,32 @@
   
 
 </div>
+  <h2>Constant Summary</h2>
+  
+    <dl class="constants">
+      
+        <dt id="ZERO_WIDTH_CHAR_SIZE-constant" class="">ZERO_WIDTH_CHAR_SIZE =
+          <div class="docstring">
+  <div class="discussion">
+    <p>When we do embedded icons, we create a 3-character string that has a font
+size of zero and a letter-spacing that fits the icon we need. That gives
+us the wrapping behavior we need but no clutter beneath.  On most
+platforms, this works fine. On Linux, this creates
+a Cairo transformation matrix that</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+    </dl>
+  
+
 
 
 
@@ -129,7 +155,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#make_surface-instance_method" title="#make_surface (instance method)">- (Object) <strong>make_surface</strong>(svgfile, backend) </a>
+      <a href="#set_font_rendering_opts%21-instance_method" title="#set_font_rendering_opts! (instance method)">- (Object) <strong>set_font_rendering_opts!</strong>(layout) </a>
     
 
     
@@ -152,21 +178,15 @@
   
 
 
-  
-  
-  
-  
-  
-  
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="make_surface-instance_method">
+  <h3 class="signature first" id="set_font_rendering_opts!-instance_method">
   
-    - (<tt>Object</tt>) <strong>make_surface</strong>(svgfile, backend) 
+    - (<tt>Object</tt>) <strong>set_font_rendering_opts!</strong>(layout) 
   
 
   
@@ -187,33 +207,23 @@
       <pre class="lines">
 
 
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42</pre>
+79
+80
+81
+82
+83
+84
+85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/squib/card.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'lib/squib/graphics/text.rb', line 79</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_make_surface'>make_surface</span><span class='lparen'>(</span><span class='id identifier rubyid_svgfile'>svgfile</span><span class='comma'>,</span> <span class='id identifier rubyid_backend'>backend</span><span class='rparen'>)</span>
-  <span class='kw'>case</span> <span class='id identifier rubyid_backend'>backend</span>
-  <span class='kw'>when</span> <span class='symbol'>:memory</span>
-    <span class='const'>Cairo</span><span class='op'>::</span><span class='const'>ImageSurface</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@width</span><span class='comma'>,</span> <span class='ivar'>@height</span><span class='rparen'>)</span>
-  <span class='kw'>when</span> <span class='symbol'>:svg</span>
-    <span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_mkdir'>mkdir</span> <span class='ivar'>@deck</span><span class='period'>.</span><span class='id identifier rubyid_dir'>dir</span> <span class='kw'>unless</span> <span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_exists?'>exists?</span><span class='lparen'>(</span><span class='ivar'>@deck</span><span class='period'>.</span><span class='id identifier rubyid_dir'>dir</span><span class='rparen'>)</span>
-    <span class='const'>Cairo</span><span class='op'>::</span><span class='const'>SVGSurface</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_svgfile'>svgfile</span><span class='comma'>,</span> <span class='ivar'>@width</span><span class='comma'>,</span> <span class='ivar'>@height</span><span class='rparen'>)</span>
-  <span class='kw'>else</span>
-    <span class='const'>Squib</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_fatal'>fatal</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Back end not recognized: &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_backend'>backend</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39;</span><span class='tstring_end'>&quot;</span></span>
-    <span class='id identifier rubyid_abort'>abort</span>
-  <span class='kw'>end</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_set_font_rendering_opts!'>set_font_rendering_opts!</span><span class='lparen'>(</span><span class='id identifier rubyid_layout'>layout</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_font_options'>font_options</span>                <span class='op'>=</span> <span class='const'>Cairo</span><span class='op'>::</span><span class='const'>FontOptions</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+  <span class='id identifier rubyid_font_options'>font_options</span><span class='period'>.</span><span class='id identifier rubyid_antialias'>antialias</span>      <span class='op'>=</span> <span class='const'>ANTIALIAS_OPTS</span><span class='lbracket'>[</span><span class='lparen'>(</span><span class='ivar'>@deck</span><span class='period'>.</span><span class='id identifier rubyid_antialias'>antialias</span><span class='period'>.</span><span class='id identifier rubyid_downcase'>downcase</span><span class='rparen'>)</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>gray</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_font_options'>font_options</span><span class='period'>.</span><span class='id identifier rubyid_hint_metrics'>hint_metrics</span>   <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>on</span><span class='tstring_end'>&#39;</span></span> <span class='comment'># TODO make this configurable
+</span>  <span class='id identifier rubyid_font_options'>font_options</span><span class='period'>.</span><span class='id identifier rubyid_hint_style'>hint_style</span>     <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>full</span><span class='tstring_end'>&#39;</span></span> <span class='comment'># TODO make this configurable
+</span>  <span class='id identifier rubyid_layout'>layout</span><span class='period'>.</span><span class='id identifier rubyid_context'>context</span><span class='period'>.</span><span class='id identifier rubyid_font_options'>font_options</span> <span class='op'>=</span> <span class='id identifier rubyid_font_options'>font_options</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -225,7 +235,7 @@
 </div>
 
     <div id="footer">
-  Generated on Sat Feb 28 20:54:25 2015 by
+  Generated on Mon Apr 13 21:37:42 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.0.0).
 </div>

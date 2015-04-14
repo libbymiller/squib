@@ -80,7 +80,7 @@
   
     <dt class="r1 last">Defined in:</dt>
     <dd class="r1 last">lib/squib/deck.rb<span class="defines">,<br />
-  lib/squib.rb,<br /> lib/squib/card.rb,<br /> lib/squib/version.rb,<br /> lib/squib/api/save.rb,<br /> lib/squib/api/data.rb,<br /> lib/squib/api/text.rb,<br /> lib/squib/progress.rb,<br /> lib/squib/constants.rb,<br /> lib/squib/api/units.rb,<br /> lib/squib/api/image.rb,<br /> lib/squib/api/shapes.rb,<br /> lib/squib/api/settings.rb,<br /> lib/squib/commands/new.rb,<br /> lib/squib/graphics/text.rb,<br /> lib/squib/layout_parser.rb,<br /> lib/squib/input_helpers.rb,<br /> lib/squib/graphics/image.rb,<br /> lib/squib/api/background.rb,<br /> lib/squib/graphics/shapes.rb,<br /> lib/squib/graphics/showcase.rb,<br /> lib/squib/graphics/save_doc.rb,<br /> lib/squib/graphics/background.rb,<br /> lib/squib/graphics/save_images.rb,<br /> lib/squib/args/unit_conversion.rb,<br /> lib/squib/graphics/gradient_regex.rb,<br /> lib/squib/graphics/cairo_context_wrapper.rb</span>
+  lib/squib.rb,<br /> lib/squib/card.rb,<br /> lib/squib/version.rb,<br /> lib/squib/api/save.rb,<br /> lib/squib/progress.rb,<br /> lib/squib/api/text.rb,<br /> lib/squib/api/data.rb,<br /> lib/squib/constants.rb,<br /> lib/squib/api/image.rb,<br /> lib/squib/api/units.rb,<br /> lib/squib/api/shapes.rb,<br /> lib/squib/api/settings.rb,<br /> lib/squib/commands/new.rb,<br /> lib/squib/input_helpers.rb,<br /> lib/squib/graphics/text.rb,<br /> lib/squib/layout_parser.rb,<br /> lib/squib/api/text_embed.rb,<br /> lib/squib/graphics/image.rb,<br /> lib/squib/api/background.rb,<br /> lib/squib/graphics/shapes.rb,<br /> lib/squib/args/typographer.rb,<br /> lib/squib/graphics/showcase.rb,<br /> lib/squib/graphics/save_doc.rb,<br /> lib/squib/graphics/background.rb,<br /> lib/squib/args/unit_conversion.rb,<br /> lib/squib/graphics/save_images.rb,<br /> lib/squib/graphics/gradient_regex.rb,<br /> lib/squib/graphics/cairo_context_wrapper.rb</span>
 </dd>
   
 </dl>
@@ -104,7 +104,7 @@
     
   
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Squib/Card.html" title="Squib::Card (class)">Card</a></span>, <span class='object_link'><a href="Squib/Deck.html" title="Squib::Deck (class)">Deck</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Squib/Card.html" title="Squib::Card (class)">Card</a></span>, <span class='object_link'><a href="Squib/Deck.html" title="Squib::Deck (class)">Deck</a></span>, <span class='object_link'><a href="Squib/TextEmbed.html" title="Squib::TextEmbed (class)">TextEmbed</a></span>
     
   
 </p>
@@ -130,7 +130,7 @@ e.g. v0.0.5a is on its way to becoming v0.0.5</p>
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>0.4.0a</span><span class='tstring_end'>&#39;</span></span></pre></dd>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>0.5.0a</span><span class='tstring_end'>&#39;</span></span></pre></dd>
       
         <dt id="SYSTEM_DEFAULTS-constant" class="">SYSTEM_DEFAULTS =
           <div class="docstring">
@@ -151,11 +151,17 @@ e.g. v0.0.5a is on its way to becoming v0.0.5</p>
   <span class='symbol'>:angle</span> <span class='op'>=&gt;</span> <span class='int'>0</span><span class='comma'>,</span>
   <span class='symbol'>:blend</span> <span class='op'>=&gt;</span> <span class='symbol'>:none</span><span class='comma'>,</span>
   <span class='symbol'>:color</span> <span class='op'>=&gt;</span> <span class='symbol'>:black</span><span class='comma'>,</span>
-  <span class='symbol'>:columns</span> <span class='op'>=&gt;</span> <span class='int'>1</span><span class='comma'>,</span>
+  <span class='symbol'>:columns</span> <span class='op'>=&gt;</span> <span class='int'>5</span><span class='comma'>,</span>
   <span class='symbol'>:count_format</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>%02d</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+  <span class='symbol'>:cx1</span> <span class='op'>=&gt;</span> <span class='int'>0</span><span class='comma'>,</span>
+  <span class='symbol'>:cx2</span> <span class='op'>=&gt;</span> <span class='int'>0</span><span class='comma'>,</span>
+  <span class='symbol'>:cy1</span> <span class='op'>=&gt;</span> <span class='int'>0</span><span class='comma'>,</span>
+  <span class='symbol'>:cy2</span> <span class='op'>=&gt;</span> <span class='int'>0</span><span class='comma'>,</span>
   <span class='symbol'>:default_font</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Arial 36</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
   <span class='symbol'>:dir</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>_output</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-  <span class='symbol'>:ellipsize</span> <span class='op'>=&gt;</span> <span class='symbol'>:end</span><span class='comma'>,</span>
+  <span class='symbol'>:dx</span> <span class='op'>=&gt;</span> <span class='int'>0</span><span class='comma'>,</span> <span class='comment'># delta
+</span>  <span class='symbol'>:dy</span> <span class='op'>=&gt;</span> <span class='int'>0</span><span class='comma'>,</span> <span class='comment'># delta
+</span>  <span class='symbol'>:ellipsize</span> <span class='op'>=&gt;</span> <span class='symbol'>:end</span><span class='comma'>,</span>
   <span class='symbol'>:face</span> <span class='op'>=&gt;</span> <span class='symbol'>:left</span><span class='comma'>,</span>
   <span class='symbol'>:fill_color</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>#0000</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
   <span class='symbol'>:force_id</span> <span class='op'>=&gt;</span> <span class='kw'>false</span><span class='comma'>,</span>
@@ -167,12 +173,14 @@ e.g. v0.0.5a is on its way to becoming v0.0.5</p>
   <span class='symbol'>:hint</span> <span class='op'>=&gt;</span> <span class='symbol'>:off</span><span class='comma'>,</span>
   <span class='symbol'>:img_dir</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>.</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
   <span class='symbol'>:justify</span> <span class='op'>=&gt;</span> <span class='kw'>false</span><span class='comma'>,</span>
+  <span class='symbol'>:key</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>*</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
   <span class='symbol'>:margin</span> <span class='op'>=&gt;</span> <span class='int'>75</span><span class='comma'>,</span>
   <span class='symbol'>:markup</span> <span class='op'>=&gt;</span> <span class='kw'>false</span><span class='comma'>,</span>
   <span class='symbol'>:mask</span> <span class='op'>=&gt;</span> <span class='kw'>nil</span><span class='comma'>,</span>
   <span class='symbol'>:offset</span> <span class='op'>=&gt;</span> <span class='float'>1.1</span><span class='comma'>,</span>
   <span class='symbol'>:prefix</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>card_</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
   <span class='symbol'>:progress_bar</span> <span class='op'>=&gt;</span> <span class='kw'>false</span><span class='comma'>,</span>
+  <span class='symbol'>:quotes</span> <span class='op'>=&gt;</span> <span class='symbol'>:dumb</span><span class='comma'>,</span>
   <span class='symbol'>:reflect_offset</span> <span class='op'>=&gt;</span> <span class='int'>15</span><span class='comma'>,</span>
   <span class='symbol'>:reflect_percent</span> <span class='op'>=&gt;</span> <span class='float'>0.25</span><span class='comma'>,</span>
   <span class='symbol'>:reflect_strength</span> <span class='op'>=&gt;</span> <span class='float'>0.2</span><span class='comma'>,</span>
@@ -225,6 +233,35 @@ e.g. v0.0.5a is on its way to becoming v0.0.5</p>
   <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>hint</span><span class='tstring_end'>&#39;</span></span>          <span class='op'>=&gt;</span> <span class='symbol'>:none</span><span class='comma'>,</span>
   <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>img_dir</span><span class='tstring_end'>&#39;</span></span>       <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>.</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
   <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>progress_bar</span><span class='tstring_end'>&#39;</span></span>  <span class='op'>=&gt;</span> <span class='kw'>false</span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ldquote</span><span class='tstring_end'>&#39;</span></span>       <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\u201C</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='comment'># UTF8 chars
+</span>  <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>rdquote</span><span class='tstring_end'>&#39;</span></span>       <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\u201D</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>lsquote</span><span class='tstring_end'>&#39;</span></span>       <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\u2018</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>rsquote</span><span class='tstring_end'>&#39;</span></span>       <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\u2019</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>em_dash</span><span class='tstring_end'>&#39;</span></span>       <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\u2014</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>en_dash</span><span class='tstring_end'>&#39;</span></span>       <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\u2013</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ellipsis</span><span class='tstring_end'>&#39;</span></span>      <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\u2026</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>smart_quotes</span><span class='tstring_end'>&#39;</span></span>  <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='comma'>,</span>
+<span class='rbrace'>}</span></pre></dd>
+      
+        <dt id="ANTIALIAS_OPTS-constant" class="">ANTIALIAS_OPTS =
+          <div class="docstring">
+  <div class="discussion">
+    <p>Translate the hints to the methods.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='lbrace'>{</span>
+  <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>best</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>subpixel</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>good</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>gray</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>fast</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>gray</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>gray</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>gray</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>subpixel</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>subpixel</span><span class='tstring_end'>&#39;</span></span>
 <span class='rbrace'>}</span></pre></dd>
       
         <dt id="UNIT_CONVERSION_PARAMS-constant" class="">UNIT_CONVERSION_PARAMS =
@@ -248,7 +285,13 @@ value: the user-facing API key (e.g. radius: &#39;1in&#39;)</p>
         </dt>
         <dd><pre class="code"><span class='lbrace'>{</span>
   <span class='symbol'>:circle_radius</span> <span class='op'>=&gt;</span> <span class='symbol'>:radius</span><span class='comma'>,</span>
-  <span class='symbol'>:gap</span> <span class='op'>=&gt;</span> <span class='symbol'>:gap</span><span class='comma'>,</span>
+  <span class='symbol'>:cx1</span> <span class='op'>=&gt;</span> <span class='symbol'>:cx1</span><span class='comma'>,</span>
+  <span class='symbol'>:cx2</span> <span class='op'>=&gt;</span> <span class='symbol'>:cx2</span><span class='comma'>,</span>
+  <span class='symbol'>:cy1</span> <span class='op'>=&gt;</span> <span class='symbol'>:cy1</span><span class='comma'>,</span>
+  <span class='symbol'>:cy2</span> <span class='op'>=&gt;</span> <span class='symbol'>:cy2</span><span class='comma'>,</span>
+  <span class='symbol'>:dx</span> <span class='op'>=&gt;</span> <span class='symbol'>:dx</span><span class='comma'>,</span> <span class='comment'># delta
+</span>  <span class='symbol'>:dy</span> <span class='op'>=&gt;</span> <span class='symbol'>:dx</span><span class='comma'>,</span> <span class='comment'># delta
+</span>  <span class='symbol'>:gap</span> <span class='op'>=&gt;</span> <span class='symbol'>:gap</span><span class='comma'>,</span>
   <span class='symbol'>:height</span> <span class='op'>=&gt;</span> <span class='symbol'>:height</span><span class='comma'>,</span>
   <span class='symbol'>:margin</span> <span class='op'>=&gt;</span> <span class='symbol'>:margin</span><span class='comma'>,</span>
   <span class='symbol'>:paper_width</span> <span class='op'>=&gt;</span> <span class='symbol'>:width</span><span class='comma'>,</span>
@@ -746,7 +789,7 @@ See the example <code>samples/excel.rb</code> in the <a href="https://github.com
 </div>
 
     <div id="footer">
-  Generated on Sat Feb 28 20:54:24 2015 by
+  Generated on Mon Apr 13 21:37:41 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.0.0).
 </div>
