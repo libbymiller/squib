@@ -78,7 +78,7 @@ module Squib
 
     def set_font_rendering_opts!(layout)
       font_options                = Cairo::FontOptions.new
-      font_options.antialias      = ANTIALIAS_OPTS[(@deck.antialias.downcase)] || 'gray'
+      font_options.antialias      = Conf::ANTIALIAS_OPTS[(@deck.antialias || 'gray').downcase]
       font_options.hint_metrics   = 'on' # TODO make this configurable
       font_options.hint_style     = 'full' # TODO make this configurable
       layout.context.font_options = font_options

@@ -29,6 +29,11 @@
 			"shell_cmd": "rake run[config_text_markup]",
 		},
 		{
+			"name": "rake run[custom_config]",
+			"shell_cmd": "rake run[custom_config]",
+		},
+
+		{
 			"name":        "rspec spec/samples/samples_regression_spec.rb",
 			"shell_cmd":   "rspec spec/samples/samples_regression_spec.rb",
 			"working_dir": "${project_path:${folder}}"
@@ -41,6 +46,16 @@
 		{
 			"name":        "rspec spec/graphics/graphics_text_spec.rb",
 			"shell_cmd":   "rspec spec/graphics/graphics_text_spec.rb",
+			"working_dir": "${project_path:${folder}}"
+		},
+		{
+			"name":        "rspec spec/graphics/graphics_images_spec.rb",
+			"shell_cmd":   "rspec spec/graphics/graphics_images_spec.rb",
+			"working_dir": "${project_path:${folder}}"
+		},
+		{
+			"name":        "rspec spec/graphics/graphics_shapes_spec.rb",
+			"shell_cmd":   "rspec spec/graphics/graphics_shapes_spec.rb",
 			"working_dir": "${project_path:${folder}}"
 		},
 

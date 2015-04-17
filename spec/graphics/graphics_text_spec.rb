@@ -16,6 +16,7 @@ describe Squib::Card, '#text' do
       allow(deck).to receive(:count_format).and_return('%02d')
       allow(deck).to receive(:prefix).and_return('card_')
       allow(deck).to receive(:antialias).and_return('best')
+      allow(deck).to receive(:conf).and_return(Squib::Conf.new)
       allow(layout).to receive(:context).and_return(pango_cxt)
     end
 
@@ -71,6 +72,7 @@ describe Squib::Card, '#text' do
       allow(deck).to receive(:dir).and_return('_output')
       allow(deck).to receive(:count_format).and_return('%02d')
       allow(deck).to receive(:prefix).and_return('card_')
+      allow(deck).to receive(:conf).and_return(Squib::Conf.new)
       allow(deck).to receive(:antialias).and_return('best')
     end
 

@@ -7,6 +7,7 @@ require 'squib/input_helpers'
 require 'squib/constants'
 require 'squib/layout_parser'
 require 'squib/args/unit_conversion'
+require 'squib/conf'
 
 # The project module
 #
@@ -20,23 +21,22 @@ module Squib
     include Enumerable
     include Squib::InputHelpers
 
+    # Attributes for the width, height (in pixels) and number of cards
+    # These are expected to be immuatble for the life of Deck
+    # @api private
+    attr_reader :width, :height, :cards
+
+    #### CUT THESE ####
     # :nodoc:
     # @api private
-    attr_reader :width, :height
-
-    # :nodoc:
-    # @api private
-    attr_reader :cards
-
-    # :nodoc:
-    # @api private
-    attr_reader :text_hint, :antialias
-
-    # :nodoc:
-    # @api private
-    attr_reader :layout, :config, :quote_chars
-
+    attr_reader :text_hint
     attr_reader :dir, :prefix, :count_format
+    attr_reader :quote_chars, :config, :backend, :antialias
+    ###################
+
+    # :nodoc:
+    # @api private
+    attr_reader :layout, :conf
 
     # Squib's constructor that sets the immutable properties.
     #
@@ -58,7 +58,6 @@ module Squib
     # @param block [Block] the main body of the script.
     # @api public
     def initialize(width: 825, height: 1125, cards: 1, dpi: 300, config: 'config.yml', layout: nil, &block)
-      @antialias     = CONFIG_DEFAULTS['antialias']
       @dpi           = dpi
       @font          = SYSTEM_DEFAULTS[:default_font]
       @cards         = []
@@ -70,12 +69,12 @@ module Squib
       @dir           = SYSTEM_DEFAULTS[:dir]
       @prefix        = SYSTEM_DEFAULTS[:prefix]
       @count_format  = SYSTEM_DEFAULTS[:count_format]
-      @quote_chars   = CONFIG_DEFAULTS.select {|k,v| %w(lsquote rsquote ldquote rdquote em_dash en_dash ellipsis smart_quotes).include?(k) }
+      @quote_chars   = Conf::DEFAULTS.select {|k,v| %w(lsquote rsquote ldquote rdquote em_dash en_dash ellipsis smart_quotes).include?(k) }
       show_info(config, layout)
-      load_config(config)
+      @conf = Conf.load(config)
       @width         = Args::UnitConversion.parse width, dpi
       @height        = Args::UnitConversion.parse height, dpi
-      cards.times{ |i| @cards << Squib::Card.new(self, @width, @height, @backend, i) }
+      cards.times{ |i| @cards << Squib::Card.new(self, @width, @height, i) }
       @layout        = LayoutParser.load_layout(layout)
       if block_given?
         instance_eval(&block) # here we go. wheeeee!
@@ -94,29 +93,6 @@ module Squib
     # @api private
     def each(&block)
       @cards.each { |card| block.call(card) }
-    end
-
-    # Load the configuration file, if exists, overriding hardcoded defaults
-    # @api private
-    def load_config(file)
-      if File.exists?(file) && config = YAML.load_file(file)
-        Squib::logger.info { "  using config: #{file}" }
-        config                = CONFIG_DEFAULTS.merge(config)
-        @dpi                  = config['dpi'].to_i
-        @text_hint            = config['text_hint']
-        @progress_bar.enabled = config['progress_bars']
-        @custom_colors        = config['custom_colors']
-        @img_dir              = config['img_dir']
-        @backend              = (config['backend'].to_s.downcase.strip == 'svg') ? :svg : :memory
-        @dir                  = config['dir']
-        @prefix               = config['prefix']
-        @count_format         = config['count_format']
-        @antialias            = config['antialias']
-        @quote_chars ||= {}
-        %w(lsquote rsquote ldquote rdquote smart_quotes em_dash en_dash ellipsis).each do |key|
-          @quote_chars[key] = config[key]
-        end
-      end
     end
 
     # Use Logger to show more detail on the run
