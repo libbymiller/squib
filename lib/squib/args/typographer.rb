@@ -4,14 +4,14 @@ module Squib
     class Typographer
 
       def initialize(config = Conf::DEFAULTS)
-        [:lsquote, :ldquote, :rsquote, :rdquote, :smart_quotes,
-         :em_dash, :en_dash, :ellipsis ].each do |var|
+      %w(lsquote ldquote rsquote rdquote smart_quotes
+         em_dash en_dash ellipsis).each do |var|
           instance_variable_set("@#{var}", config[var])
         end
       end
 
       def process(str)
-        str = explicit_replacements(str)
+        str = explicit_replacements(str.to_s)
         str = smart_quotes(str) if @smart_quotes
         str
       end

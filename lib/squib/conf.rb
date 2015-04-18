@@ -6,24 +6,24 @@ module Squib
   class Conf
 
     DEFAULTS = {
-      :antialias     => 'best',
-      :backend       => 'memory',
-      :count_format  => SYSTEM_DEFAULTS[:count_format],
-      :custom_colors => {},
-      :dir           => SYSTEM_DEFAULTS[:dir],
-      :dpi           => 300,
-      :hint          => :none,
-      :img_dir       => '.',
-      :progress_bar  => false,
-      :ldquote       => "\u201C", # UTF8 chars
-      :rdquote       => "\u201D",
-      :lsquote       => "\u2018",
-      :rsquote       => "\u2019",
-      :em_dash       => "\u2014",
-      :en_dash       => "\u2013",
-      :ellipsis      => "\u2026",
-      :smart_quotes  => true,
-      :text_hint     => 'off',
+      'antialias'     => 'best',
+      'backend'       => 'memory',
+      'count_format'  => SYSTEM_DEFAULTS[:count_format],
+      'custom_colors' => {},
+      'dir'           => SYSTEM_DEFAULTS[:dir],
+      'dpi'           => 300,
+      'hint'          => :none,
+      'img_dir'       => '.',
+      'progress_bar'  => false,
+      'ldquote'       => "\u201C", # UTF8 chars
+      'rdquote'       => "\u201D",
+      'lsquote'       => "\u2018",
+      'rsquote'       => "\u2019",
+      'em_dash'       => "\u2014",
+      'en_dash'       => "\u2013",
+      'ellipsis'      => "\u2026",
+      'smart_quotes'  => true,
+      'text_hint'     => 'off',
     }
 
     #Translate the hints to the methods.
@@ -58,10 +58,14 @@ module Squib
       Conf.new(DEFAULTS.merge(yaml))
     end
 
+    def to_s
+      "Conf: #{@config_hash.to_s}"
+    end
+
     private
 
     def normalize_antialias
-      @config_hash[:antialias] = ANTIALIAS_OPTS[@config_hash[:antialias].downcase.strip]
+      @config_hash['antialias'] = ANTIALIAS_OPTS[@config_hash['antialias'].downcase.strip]
     end
 
 

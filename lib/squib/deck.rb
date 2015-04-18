@@ -70,8 +70,8 @@ module Squib
       @prefix        = SYSTEM_DEFAULTS[:prefix]
       @count_format  = SYSTEM_DEFAULTS[:count_format]
       @quote_chars   = Conf::DEFAULTS.select {|k,v| %w(lsquote rsquote ldquote rdquote em_dash en_dash ellipsis smart_quotes).include?(k) }
-      show_info(config, layout)
       @conf = Conf.load(config)
+      show_info(config, layout)
       @width         = Args::UnitConversion.parse width, dpi
       @height        = Args::UnitConversion.parse height, dpi
       cards.times{ |i| @cards << Squib::Card.new(self, @width, @height, i) }
