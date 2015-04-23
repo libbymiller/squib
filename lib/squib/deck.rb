@@ -1,5 +1,6 @@
 require 'yaml'
 require 'pp'
+require 'forwardable'
 require 'squib'
 require 'squib/card'
 require 'squib/progress'
@@ -20,6 +21,7 @@ module Squib
   class Deck
     include Enumerable
     include Squib::InputHelpers
+    extend Forwardable
 
     # Attributes for the width, height (in pixels) and number of cards
     # These are expected to be immuatble for the life of Deck
@@ -29,10 +31,12 @@ module Squib
     #### CUT THESE ####
     # :nodoc:
     # @api private
-    attr_reader :text_hint
     attr_reader :dir, :prefix, :count_format
     attr_reader :quote_chars, :config, :backend, :antialias
     ###################
+
+    # Delegate configuration options to the Squib::Conf object
+    def_delegators :conf, :img_dir, :text_hint
 
     # :nodoc:
     # @api private
@@ -62,15 +66,13 @@ module Squib
       @font          = SYSTEM_DEFAULTS[:default_font]
       @cards         = []
       @custom_colors = {}
-      @img_dir       = '.'
-      @progress_bar  = Progress.new(false)
-      @text_hint     = :off
       @backend       = :memory
       @dir           = SYSTEM_DEFAULTS[:dir]
       @prefix        = SYSTEM_DEFAULTS[:prefix]
       @count_format  = SYSTEM_DEFAULTS[:count_format]
       @quote_chars   = Conf::DEFAULTS.select {|k,v| %w(lsquote rsquote ldquote rdquote em_dash en_dash ellipsis smart_quotes).include?(k) }
-      @conf = Conf.load(config)
+      @conf          = Conf.load(config)
+      @progress_bar  = Progress.new(@conf.progress_bars) # FIXME this is evil. Using something different with @ and non-@
       show_info(config, layout)
       @width         = Args::UnitConversion.parse width, dpi
       @height        = Args::UnitConversion.parse height, dpi

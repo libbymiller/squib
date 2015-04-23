@@ -14,7 +14,7 @@ module Squib
       'dpi'           => 300,
       'hint'          => :none,
       'img_dir'       => '.',
-      'progress_bar'  => false,
+      'progress_bars' => false,
       'ldquote'       => "\u201C", # UTF8 chars
       'rdquote'       => "\u201D",
       'lsquote'       => "\u2018",
@@ -62,12 +62,23 @@ module Squib
       "Conf: #{@config_hash.to_s}"
     end
 
+    def img_dir
+      @config_hash['img_dir']
+    end
+
+    def text_hint
+      @config_hash['text_hint']
+    end
+
+    def progress_bars
+      @config_hash['progress_bars']
+    end
+
     private
 
     def normalize_antialias
       @config_hash['antialias'] = ANTIALIAS_OPTS[@config_hash['antialias'].downcase.strip]
     end
-
 
   end
 end
