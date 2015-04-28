@@ -12,7 +12,6 @@ module Squib
       'count_format'  => SYSTEM_DEFAULTS[:count_format],
       'custom_colors' => {},
       'dir'           => SYSTEM_DEFAULTS[:dir],
-      'dpi'           => 300,
       'hint'          => :none,
       'img_dir'       => '.',
       'progress_bars' => false,
@@ -43,6 +42,7 @@ module Squib
       normalize_antialias
     end
 
+    # FIXME REMOVE THIS as part of refactoring
     # Delegate [] to our hash
     # @api private
     def [](key)
@@ -55,7 +55,7 @@ module Squib
       yaml = {}
       if File.exists? file
         Squib::logger.info { "  using config: #{file}" }
-        yaml = YAML.load_file(file)
+        yaml = YAML.load_file(file) || {}
       end
       Conf.new(DEFAULTS.merge(yaml))
     end
@@ -78,6 +78,30 @@ module Squib
 
     def typographer
       @typographer
+    end
+
+    def dir
+      @config_hash['dir']
+    end
+
+    def prefix
+      @config_hash['prefix']
+    end
+
+    def count_format
+      @config_hash['count_format']
+    end
+
+    def antialias
+      @config_hash['antialias']
+    end
+
+    def backend
+      @config_hash['backend']
+    end
+
+    def custom_colors
+      @config_hash['custom_colors']
     end
 
     private

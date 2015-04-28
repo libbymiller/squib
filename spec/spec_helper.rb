@@ -32,6 +32,14 @@ def csv_file(file)
   "#{File.expand_path(File.dirname(__FILE__))}/data/csv/#{file}"
 end
 
+def project_template(file)
+  "#{File.expand_path(File.dirname(__FILE__))}/../lib/squib/project_template/#{file}"
+end
+
+def conf(file)
+  "#{File.expand_path(File.dirname(__FILE__))}/data/conf/#{file}"
+end
+
 def overwrite_sample(sample_name, log)
   # Use this to overwrite the regression with current state
   File.open(sample_regression_file(sample_name), 'w+:UTF-8') do |f|

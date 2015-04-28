@@ -28,16 +28,9 @@ module Squib
     # @api private
     attr_reader :width, :height, :cards
 
-    #### CUT THESE ####
-    # :nodoc:
-    # @api private
-    attr_reader :dir, :prefix, :count_format
-    attr_reader :config, :backend, :antialias
-    ###################
-
-    # Delegate configuration options to the Squib::Conf object
-    def_delegators :conf, :img_dir, :text_hint, :typographer
-
+    # Delegate these configuration options to the Squib::Conf object
+    def_delegators :conf, :antialias, :backend, :count_format, :dir,
+                          :img_dir, :text_hint, :typographer
     # :nodoc:
     # @api private
     attr_reader :layout, :conf
@@ -66,11 +59,6 @@ module Squib
       @font          = SYSTEM_DEFAULTS[:default_font]
       @cards         = []
       @custom_colors = {}
-      @backend       = :memory
-      @dir           = SYSTEM_DEFAULTS[:dir]
-      @prefix        = SYSTEM_DEFAULTS[:prefix]
-      @count_format  = SYSTEM_DEFAULTS[:count_format]
-      @quote_chars   = Conf::DEFAULTS.select {|k,v| %w(lsquote rsquote ldquote rdquote em_dash en_dash ellipsis smart_quotes).include?(k) }
       @conf          = Conf.load(config)
       @progress_bar  = Progress.new(@conf.progress_bars) # FIXME this is evil. Using something different with @ and non-@
       show_info(config, layout)
