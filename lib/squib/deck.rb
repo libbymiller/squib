@@ -32,11 +32,11 @@ module Squib
     # :nodoc:
     # @api private
     attr_reader :dir, :prefix, :count_format
-    attr_reader :quote_chars, :config, :backend, :antialias
+    attr_reader :config, :backend, :antialias
     ###################
 
     # Delegate configuration options to the Squib::Conf object
-    def_delegators :conf, :img_dir, :text_hint
+    def_delegators :conf, :img_dir, :text_hint, :typographer
 
     # :nodoc:
     # @api private

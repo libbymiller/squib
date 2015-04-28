@@ -1,5 +1,6 @@
 require 'squib'
 require 'forwardable'
+require 'squib/args/typographer'
 
 module Squib
   # @api private
@@ -38,6 +39,7 @@ module Squib
 
     def initialize(config_hash = DEFAULTS)
       @config_hash = config_hash
+      @typographer = Args::Typographer.new(config_hash)
       normalize_antialias
     end
 
@@ -72,6 +74,10 @@ module Squib
 
     def progress_bars
       @config_hash['progress_bars']
+    end
+
+    def typographer
+      @typographer
     end
 
     private
