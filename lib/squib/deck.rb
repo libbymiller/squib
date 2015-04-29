@@ -29,8 +29,8 @@ module Squib
     attr_reader :width, :height, :cards
 
     # Delegate these configuration options to the Squib::Conf object
-    def_delegators :conf, :antialias, :backend, :count_format, :dir,
-                          :img_dir, :text_hint, :typographer
+    def_delegators :conf, :antialias, :backend, :count_format, :custom_colors, :dir,
+                          :img_dir, :prefix, :text_hint, :typographer
     # :nodoc:
     # @api private
     attr_reader :layout, :conf

@@ -20,11 +20,11 @@ module Squib
       @deck          = deck
       @width         = width
       @height        = height
-      @backend       = deck.conf['backend']
-      @svgfile       = "#{deck.conf['dir']}/#{deck.conf['prefix']}#{deck.conf['count_format'] % index}.svg"
+      @backend       = deck.backend
+      @svgfile       = "#{deck.dir}/#{deck.prefix}#{deck.count_format % index}.svg"
       @cairo_surface = make_surface(@svgfile, @backend)
       @cairo_context = Squib::Graphics::CairoContextWrapper.new(Cairo::Context.new(@cairo_surface))
-      @cairo_context.antialias = deck.conf['antialias']
+      @cairo_context.antialias = deck.antialias
     end
 
     # :nodoc:
@@ -34,7 +34,7 @@ module Squib
       when :memory
         Cairo::ImageSurface.new(@width, @height)
       when :svg
-        Dir.mkdir @deck.conf['dir'] unless Dir.exists?(@deck.conf['dir'])
+        Dir.mkdir @deck.dir unless Dir.exists?(@deck.dir)
         Cairo::SVGSurface.new(svgfile, @width, @height)
       else
         Squib.logger.fatal "Back end not recognized: '#{backend}'"

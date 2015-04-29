@@ -4,7 +4,7 @@ require 'squib/input_helpers'
 
 class DummyDeck
   include  Squib::InputHelpers
-  attr_accessor :layout, :cards, :custom_colors, :width, :height, :dpi, :conf
+  attr_accessor :layout, :cards, :custom_colors, :width, :height, :dpi
 end
 
 describe Squib::InputHelpers do
@@ -21,7 +21,6 @@ describe Squib::InputHelpers do
     @deck.width = 100
     @deck.height = 200
     @deck.dpi = 300
-    @deck.conf = Squib::Conf.new
   end
 
   context '#layoutify' do
@@ -102,13 +101,13 @@ describe Squib::InputHelpers do
     end
 
     it 'pulls from custom colors in the config' do
-      @deck.conf['custom_colors']['foo'] = '#abc'
+      @deck.custom_colors['foo'] = '#abc'
       expect(@deck.send(:colorify, {color: [:foo]}, false)[:color][0].to_s).to \
         eq('#abc')
     end
 
     it 'pulls custom colors even when a string' do
-      @deck.conf['custom_colors']['foo'] = '#abc'
+      @deck.custom_colors['foo'] = '#abc'
       expect(@deck.send(:colorify, {color: ['foo']}, false)[:color][0].to_s).to \
         eq('#abc')
     end

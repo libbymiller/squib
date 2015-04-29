@@ -45,9 +45,9 @@ module Squib
     # FIXME REMOVE THIS as part of refactoring
     # Delegate [] to our hash
     # @api private
-    def [](key)
-      @config_hash[key]
-    end
+    # def [](key)
+    #   @config_hash[key]
+    # end
 
     # Load the configuration file, if exists, overriding hardcoded defaults
     # @api private

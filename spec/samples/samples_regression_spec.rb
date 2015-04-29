@@ -11,7 +11,7 @@ describe "Squib samples" do
     end
   end
 
-  it 'should execute with no errors' do
+  it 'should execute with no errors', slow: true do
     allow(Squib.logger).to receive(:warn) {}
     allow(ProgressBar).to receive(:create).and_return(Squib::DoNothing.new)
     Dir["#{samples_dir}/**/*.rb"].each do |sample|
@@ -67,7 +67,7 @@ describe "Squib samples" do
       tgc_proofs.rb
       units.rb
   ).each do |sample|
-    it "has not changed for #{sample}" do
+    it "has not changed for #{sample}", slow: true do
       log = StringIO.new
       mock_cairo(log)
       # load sample

@@ -21,4 +21,9 @@ describe Squib::Conf do
     expect(conf.img_dir).to        eq 'customconfig-imgdir'
   end
 
+  it 'normalizes antialias automatically' do
+    expect(Squib::Conf::DEFAULTS['antialias']).to eq 'best'
+    expect(Squib::Conf.new.antialias).to          eq 'subpixel'
+  end
+
 end

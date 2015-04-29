@@ -13,6 +13,10 @@
 			"shell_cmd": "rake",
 		},
 		{
+			"name": "rake spec_fastonly",
+			"shell_cmd": "rake spec_fastonly",
+		},
+		{
 			"name": "rake run[text_options]",
 			"shell_cmd": "rake run[text_options]",
 		},
