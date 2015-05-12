@@ -428,6 +428,8 @@ footer a:hover {
   .inner {
     width: 94%;
     margin: 0 auto;
+    background: transparent url(../images/splatter.png) 50% 0 no-repeat;
+    background-size: 420px;
   }
 }
 
