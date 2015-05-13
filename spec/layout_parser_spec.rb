@@ -138,6 +138,7 @@ describe Squib::LayoutParser do
     layout = Squib::LayoutParser.load_layout([a, b])
     expect(layout).to eq({
         'title'    => { 'x' => 300 },
+        'art'      => { 'x' => 250 },
         'subtitle' => { 'x' => 200 },
         'desc'     => { 'x' => 400 }
         })

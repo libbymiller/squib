@@ -13,6 +13,16 @@ module Squib
         thefile = builtin(file) unless File.exists?(file)
         if File.exists? thefile
           yml = layout.merge(YAML.load_file(thefile) || {}) #load_file returns false on empty file
+          puts "Loaded #{thefile}"
+          pp "yml is..."
+          pp '='*30
+          pp yml
+          pp '='*30
+          pp 'layout is...'
+          pp '-'*30
+          pp layout
+          pp '-'*30
+          require 'pp'
           yml.each do |key, value|
             layout[key] = recurse_extends(yml, key, {})
           end
@@ -20,6 +30,10 @@ module Squib
           Squib::logger.error { "Layout file not found: #{file}. Skipping..." }
         end
       end
+      pp "Ending layout is..."
+      pp '='*30
+      pp layout
+      pp '='*30
       return layout
     end
 

@@ -1,0 +1,34 @@
+# all:
+#   hint: red
+#   font: Sans Bold 72
+#   align: center
+#   valign: middle
+
+# title:
+#   extends: all
+
+# art:
+#   extends: all
+
+# description:
+#   extends: all
+
+title:
+  hint: red
+  font: Sans Bold 72
+  align: center
+  valign: middle
+art:
+  hint: red
+  font: Sans Bold 72
+  align: center
+  valign: middle
+
+description:
+  hint: red
+  font: Sans Bold 72
+  align: center
+  valign: middle
+
+border:
+  stroke_width: 15
