@@ -31,5 +31,12 @@ markdown: redcarpet
 redcarpet:
   extensions:
     - tables
+###################
+# ON GITHUB PAGES #
+###################
 highlighter: pygments
+
+##############
+# ON WINDOWS #
+##############
 # highlighter: rouge
