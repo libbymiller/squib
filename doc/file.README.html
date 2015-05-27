@@ -179,7 +179,8 @@ $ ruby deck.rb
 
 <ul>
 <li>The <code>samples</code> directory in the <a href="https://github.com/andymeneely/squib">source repository</a> has lots of examples.</li>
-<li><a href="https://github.com/andymeneely/junk-land">Junk Land</a> is my own creation that&#39;s uses Squib for both black-and-white print-and-play and full color.</li>
+<li><a href="https://github.com/andymeneely/iconoclast">Iconoclast</a> is a basic set collection game I&#39;m developing from scratch with Squib. Be sure to read the <a href="https://github.com/andymeneely/iconoclast/commits/master">commit history</a> to see how the game has developed from scratch.</li>
+<li><a href="https://github.com/andymeneely/junk-land">Junk Land</a> is my own creation that&#39;s uses Squib for full-color rendering, and makes use of Ruby in a lot of interesting ways.</li>
 </ul>
 
 <h2>Viewing this README</h2>
@@ -295,7 +296,7 @@ $ yard server --gems
 
 <h2>Units</h2>
 
-<p>By default, Squib thinks in pixels. This decision was made so that we can have pixel-perfect layouts without automatically scaling everything, even though working in units is sometimes easier. We provide some conversion methods, including looking for strings that end in &quot;in&quot; and &quot;cm&quot; and computing based on the current DPI. Example is in <code>samples/units.rb</code> found <a href="https://github.com/andymeneely/squib/tree/master/samples/units.rb">here</a></p>
+<p>By default, Squib thinks in pixels. This decision was made so that we can have pixel-perfect layouts without automatically scaling everything, even though working in units is sometimes easier. We provide some conversion methods, including looking for strings that end in &quot;in&quot; and &quot;cm&quot; and computing based on the current DPI. The dpi is set on <code>Squib::Deck.new</code> (not <code>config.yml</code>). Example is in <code>samples/units.rb</code> found <a href="https://github.com/andymeneely/squib/tree/master/samples/units.rb">here</a></p>
 
 <p><pre class="code ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>squib</span><span class='tstring_end'>&#39;</span></span>
 
@@ -325,8 +326,6 @@ $ yard server --gems
 
   <span class='id identifier rubyid_save'>save</span> <span class='label'>prefix:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>units_</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>format:</span> <span class='symbol'>:png</span>
 <span class='kw'>end</span></pre></p>
-
-<p>Note: we do not support unit conversion on <code>save_pdf</code> and <code>Squib::Deck.new()</code>, <a href="https://github.com/andymeneely/squib/issues/21">yet</a>. We are also working on support for unit conversion within layout parsing, so using it as a part of <code>extends</code> is not yet supported.</p>
 
 <h2>Specifying Colors &amp; Gradients</h2>
 
@@ -599,6 +598,10 @@ Times New Roman,Sans 25
     <span class='id identifier rubyid_embed'>embed</span><span class='period'>.</span><span class='id identifier rubyid_svg'>svg</span> <span class='label'>key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>:health:</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>width:</span> <span class='int'>28</span><span class='comma'>,</span> <span class='label'>height:</span> <span class='int'>28</span><span class='comma'>,</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>glass-heart.svg</span><span class='tstring_end'>&#39;</span></span>
   <span class='kw'>end</span>
 
+  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Stroke n &lt;span fgcolor=\&quot;\#ff0000\&quot;&gt;fill&lt;/span&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+       <span class='label'>color:</span> <span class='symbol'>:green</span><span class='comma'>,</span> <span class='label'>stroke_width:</span> <span class='float'>2.0</span><span class='comma'>,</span> <span class='label'>stroke_color:</span> <span class='symbol'>:blue</span><span class='comma'>,</span>
+       <span class='label'>x:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>1.8in</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>y:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>3in</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>width:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>0.85in</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Sans Bold 26</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>markup:</span> <span class='kw'>true</span>
+
   <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;b&gt;Markup&lt;/b&gt; is &lt;i&gt;quite&lt;/i&gt; &lt;s&gt;&#39;easy&#39;&lt;/s&gt; &lt;span fgcolor=\&quot;\#ff0000\&quot;&gt;awesome&lt;/span&gt;. Can&#39;t beat those \&quot;smart\&quot; &#39;quotes&#39;, now with 10--20% more en-dashes --- and em-dashes --- with explicit ellipses too...</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
        <span class='label'>markup:</span> <span class='kw'>true</span><span class='comma'>,</span>
        <span class='label'>x:</span> <span class='int'>50</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>1000</span><span class='comma'>,</span>
@@ -675,7 +678,7 @@ Times New Roman,Sans 25
   <span class='id identifier rubyid_text'>text</span><span class='lparen'>(</span><span class='label'>str:</span> <span class='id identifier rubyid_embed_text'>embed_text</span><span class='comma'>,</span> <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Sans 21</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
        <span class='label'>x:</span> <span class='int'>400</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>320</span><span class='comma'>,</span> <span class='label'>width:</span> <span class='int'>180</span><span class='comma'>,</span> <span class='label'>height:</span> <span class='int'>300</span><span class='comma'>,</span>
        <span class='label'>align:</span> <span class='symbol'>:center</span><span class='comma'>,</span> <span class='label'>ellipsize:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>justify:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>hint:</span> <span class='symbol'>:magenta</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_embed'>embed</span><span class='op'>|</span>
-    <span class='id identifier rubyid_embed'>embed</span><span class='period'>.</span><span class='id identifier rubyid_svg'>svg</span> <span class='label'>key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>:tool:</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>   <span class='label'>width:</span> <span class='int'>28</span><span class='comma'>,</span> <span class='label'>height:</span> <span class='int'>28</span><span class='comma'>,</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>spanner.svg</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_embed'>embed</span><span class='period'>.</span><span class='id identifier rubyid_svg'>svg</span> <span class='label'>key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>:tool:</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>   <span class='label'>width:</span> <span class='int'>28</span><span class='comma'>,</span> <span class='label'>height:</span> <span class='int'>28</span><span class='comma'>,</span> <span class='label'>data:</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>spanner.svg</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
     <span class='id identifier rubyid_embed'>embed</span><span class='period'>.</span><span class='id identifier rubyid_svg'>svg</span> <span class='label'>key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>:health:</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>width:</span> <span class='int'>28</span><span class='comma'>,</span> <span class='label'>height:</span> <span class='int'>28</span><span class='comma'>,</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>glass-heart.svg</span><span class='tstring_end'>&#39;</span></span>
     <span class='id identifier rubyid_embed'>embed</span><span class='period'>.</span><span class='id identifier rubyid_png'>png</span> <span class='label'>key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>:purse:</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>  <span class='label'>width:</span> <span class='int'>28</span><span class='comma'>,</span> <span class='label'>height:</span> <span class='int'>28</span><span class='comma'>,</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>shiny-purse.png</span><span class='tstring_end'>&#39;</span></span>
   <span class='kw'>end</span>
@@ -950,7 +953,6 @@ child_b:
 
 <ul>
 <li><code>progress_bars</code> (Boolean, default: false).  When set to <code>true</code>, long-running operations will show a progress bar on the command line.</li>
-<li><code>dpi</code> (Integer, default: 300). Used in calculations when units are used (e.g. for PDF rendering and unit conversion).</li>
 <li><code>hint</code> (ColorString, default: off). Text hints are used to show the boundaries of text boxes. Can be enabled/disabled for individual commands, or set globally with the <code>set</code> command. This setting is overriden by <code>set</code> and individual commands.</li>
 <li><code>custom_colors</code> (Hash of Colors, default: {}). Defines globally-available colors available to the deck that can be specified in commands.</li>
 <li><code>antialias</code> (<code>fast, good, best, none, gray, subpixel</code>, default: best). Set the algorithm that Cairo will use for antialiasing. Using our benchmarks on large decks, <code>best</code> is only ~10% slower anyway. For more info see the <a href="http://www.cairographics.org/manual/cairo-cairo-t.html#cairo-antialias-t">Cairo docs</a>.</li>
@@ -958,9 +960,14 @@ child_b:
 <li><code>prefix</code> (default: <code>card_</code>). When using an SVG backend, cards are auto-saved with this prefix and <code>&quot;%02d&quot;</code> numbering format.</li>
 </ul>
 
-<p>The following sample demonstrates the config file.</p>
+<p>For debugging/sanity purposes, if you want to make sure your configuration options are parsed correclty, the above options are also available as methods within Squib::Deck, for example:</p>
 
-<p>See the <code>custom_config</code> sample found <a href="https://github.com/andymeneely/squib/tree/master/samples/">here</a></p>
+<pre class="code ruby"><code class="ruby"><span class='const'>Squib</span><span class='op'>::</span><span class='const'>Deck</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_backend'>backend</span> <span class='comment'># prints &#39;memory&#39; by default
+</span><span class='kw'>end</span>
+</code></pre>
+
+<p>The following sample demonstrates the config file, found <a href="https://github.com/andymeneely/squib/tree/master/samples/">here</a></p>
 
 <p><pre class="code ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>squib</span><span class='tstring_end'>&#39;</span></span>
 
@@ -968,7 +975,7 @@ child_b:
   <span class='comment'># Custom color defined in our config
 </span>  <span class='id identifier rubyid_background'>background</span> <span class='label'>color:</span> <span class='symbol'>:foo</span>
 
-  <span class='comment'># Hints are turned on in the config file
+  <span class='comment'># Hints can be turned on in the config file
 </span>  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>The Title</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>x:</span> <span class='int'>0</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>78</span><span class='comma'>,</span> <span class='label'>width:</span> <span class='int'>825</span><span class='comma'>,</span>
        <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Arial 72</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>align:</span> <span class='symbol'>:center</span>
 
@@ -1090,12 +1097,12 @@ child_b:
 
 <p>If you want to test new features as I develop them, you can always point your Gemfile to the repository. Your Gemfile specification looks like this:</p>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>squib</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='symbol'>:git</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>git://github.com/andymeneely/squib</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='symbol'>:branch</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>dev</span><span class='tstring_end'>&quot;</span></span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>squib</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>git:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>git://github.com/andymeneely/squib</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>branch:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>dev</span><span class='tstring_end'>&#39;</span></span>
 </code></pre>
 
 <ul>
 <li>The <code>dev</code> branch is where I am working on features in-process. I have not done much regression testing at this point, but would love testing feedback nonetheless.</li>
-<li>The <code>master</code> branch is where I consider features that are done and tested, but not released yet.</li>
+<li>The <code>master</code> branch is where I consider features and bug that are done and tested, but not released yet.</li>
 </ul>
 
 <h2>Contributing</h2>
@@ -1110,6 +1117,8 @@ child_b:
 <li>Create a new Pull Request</li>
 </ol>
 
+<p>Be sure to run the unit tests and packaging with just <code>rake</code>. Also, you can check that the samples render properly with <code>rake sanity</code>.</p>
+
 <h1>What&#39;s up the with the name?</h1>
 
 <p>Truthfully, I just thought it was a cool, simple word that was not used much in the Ruby community nor the board game community. But, now that I&#39;ve committed to the name, I&#39;ve realized that:</p>
@@ -1122,7 +1131,7 @@ child_b:
 </div></div>
 
     <div id="footer">
-  Generated on Mon Apr 13 21:37:40 2015 by
+  Generated on Tue May 26 20:54:27 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.0.0).
 </div>
