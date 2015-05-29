@@ -16,4 +16,5 @@ Squib::Deck.new(cards: 4, layout: %w(hand.yml even-bigger.yml)) do
 
   save_png prefix: 'even_bigger_'
   showcase file: 'showcase.png', fill_color: '#0000'
+  hand file: 'hand.png', trim: 37.5, trim_radius: 25, fill_color: '#0000'
 end

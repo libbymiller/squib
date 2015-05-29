@@ -123,6 +123,9 @@ And then this `deck.rb` file:
 <div>
   <img src="/squib/squib_examples/_output/showcase.png">
 </div>
+<div>
+  <img src="/squib/squib_examples/_output/hand.png">
+</div>
 
 <hr/>
 
