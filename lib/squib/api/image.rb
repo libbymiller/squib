@@ -1,6 +1,6 @@
 require 'squib/args/card_range'
 require 'squib/args/paint'
-require 'squib/args/box'
+require 'squib/args/scale_box'
 require 'squib/args/transform'
 require 'squib/args/input_file'
 require 'squib/args/svg_special'
@@ -31,7 +31,7 @@ module Squib
       Dir.chdir(img_dir) do
         range = Args::CardRange.new(opts[:range], deck_size: size)
         paint = Args::Paint.new(custom_colors).load!(opts, expand_by: size, layout: layout)
-        box   = Args::Box.new(self, {width: :native, height: :native}).load!(opts, expand_by: size, layout: layout, dpi: dpi)
+        box   = Args::ScaleBox.new(self).load!(opts, expand_by: size, layout: layout, dpi: dpi)
         trans = Args::Transform.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
         ifile = Args::InputFile.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
         @progress_bar.start('Loading PNG(s)', range.size) do |bar|
@@ -71,7 +71,7 @@ module Squib
       Dir.chdir(img_dir) do
         range = Args::CardRange.new(opts[:range], deck_size: size)
         paint = Args::Paint.new(custom_colors).load!(opts, expand_by: size, layout: layout)
-        box   = Args::Box.new(self, {width: :native, height: :native}).load!(opts, expand_by: size, layout: layout, dpi: dpi)
+        box   = Args::ScaleBox.new(self).load!(opts, expand_by: size, layout: layout, dpi: dpi)
         trans = Args::Transform.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
         ifile = Args::InputFile.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)
         svg_args = Args::SvgSpecial.new.load!(opts, expand_by: size, layout: layout, dpi: dpi)

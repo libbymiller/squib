@@ -21,10 +21,13 @@ module Squib
       use_cairo do |cc|
         cc.translate(box.x, box.y)
         if box.width != :native || box.height != :native
-          box.width  == :native && box.width  = png.width.to_f
-          box.height == :native && box.height = png.height.to_f
+          box.width  = png.width.to_f  if box.width  == :native
+          box.height = png.height.to_f if box.height == :native
           Squib.logger.warn "PNG scaling results in antialiasing."
           cc.scale(box.width.to_f / png.width.to_f, box.height.to_f / png.height.to_f)
+        end
+        if box.width == :scale || box.height == :scale
+          box.width = box.height.to_f / png.height.to_f if box.width == :scale
         end
         cc.rotate(trans.angle)
         cc.translate(-box.x, -box.y)
