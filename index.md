@@ -129,6 +129,6 @@ And then this `deck.rb` file:
 
 <hr/>
 
-Ready to [get started](doc/frames.html#!file.README.html)?
+Ready to [get started](doc/file.README.html)?
 
-The above examples can be found [here](https://github.com/andymeneely/squib/tree/gh-pages/squib_examples).
+The above examples can be found [here](https://github.com/andymeneely/squib/tree/gh-pages/squib_examples). NOTE: The final example, in particular, is intended to showcase the expressive power of Ruby+Squib. If you are new to Ruby (or to programming entirely), I don't recommend starting by dissecting the above example. Instead, head over to the [README](doc/file.README.html), and playing with our exhaustive [samples](https://github.com/andymeneely/squib/tree/master/samples), and keep referring back to the [method-by-method documentation](doc/Squib/Deck.html) for details.
