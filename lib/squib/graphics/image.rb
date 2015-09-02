@@ -43,9 +43,8 @@ module Squib
 
     # :nodoc:
     # @api private
-    def svg(file, svg_args, box, paint, trans)
-      Squib.logger.debug {"Rendering: #{file}, id: #{id} @#{x},#{y} #{width}x#{height}, alpha: #{alpha}, blend: #{blend}, angle: #{angle}, mask: #{mask}"}
-      Squib.logger.warn 'Both an SVG file and SVG data were specified' unless file.to_s.empty? || svg_args.data.to_s.empty?
+    def svg(svg_args, box, paint, trans)
+      Squib.logger.debug {"Rendering: #{svg_args}, id: #{id} @#{x},#{y} #{width}x#{height}, alpha: #{alpha}, blend: #{blend}, angle: #{angle}, mask: #{mask}"}
       return if (file.nil? or file.eql? '') and svg_args.data.nil? # nothing specified TODO Move this out to arg validator
       svg_args.data = File.read(file) if svg_args.data.to_s.empty?
       svg          = RSVG::Handle.new_from_data(svg_args.data)

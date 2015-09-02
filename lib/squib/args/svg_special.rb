@@ -8,7 +8,12 @@ module Squib
       include ArgLoader
 
       def self.parameters
-        { data: nil, id: nil, force_id: false }
+        {
+          file: nil,
+          data: nil,
+          id: nil,
+          force_id: false,
+        }
       end
 
       def self.expanding_parameters
@@ -30,6 +35,31 @@ module Squib
         return false if force_id[i] && id[i].to_s.empty?
         return true
       end
+
+      def validate_file(arg, i)
+        return nil if arg.nil?
+        raise "File #{File.expand_path(arg)} does not exist!" unless File.exists?(arg)
+        Squib.logger.warn 'Both an SVG file and SVG data were specified, using data' unless arg.to_s.empty? || data[i].to_s.empty?
+        File.expand_path(arg)
+      end
+
+      def rsvg_handle(i)
+        @data[i] = File.read(file[i]) if @data[i].to_s.empty? # read file once
+        RSVG::Handle.new_from_data(svg_str)
+      end
+
+      def computed_width(widths)
+        widths.map do |width|
+          case width
+          when :native
+
+          else
+            width
+          end
+        end
+      end
+
+
 
     end
 

@@ -57,13 +57,13 @@ Squib::Deck.new do
     embed.png key: ':purse:',  width: 28, height: 28, file: 'shiny-purse.png'
   end
 
-  embed_text = ':tool:Center-aligned works :tool: with :health: and :purse:'
+  embed_text = ':tool:Center-aligned works :tool: with :health: and :purse: and :scale option'
   text(str: embed_text, font: 'Sans 21',
        x: 400, y: 320, width: 180, height: 300,
        align: :center, ellipsize: false, justify: false, hint: :magenta) do |embed|
-    embed.svg key: ':tool:',   width: 28, height: 28, data: File.read('spanner.svg')
-    embed.svg key: ':health:', width: 28, height: 28, file: 'glass-heart.svg'
-    embed.png key: ':purse:',  width: 28, height: 28, file: 'shiny-purse.png'
+    embed.svg key: ':tool:',   width: 32, height: :scale, data: File.read('spanner.svg')
+    embed.svg key: ':health:', width: 24, height: :scale, file: 'glass-heart.svg'
+    embed.png key: ':purse:',  width: 16, height: :scale, file: 'shiny-purse.png'
   end
 
   embed_text = 'Markup --- and typography replacements --- with ":tool:" icons <i>won\'t</i> fail'
@@ -71,6 +71,14 @@ Squib::Deck.new do
        x: 600, y: 320, width: 180, height: 300,
        align: :center, hint: :magenta) do |embed|
     embed.svg key: ':tool:',   width: 28, height: 28, file: 'spanner.svg'
+  end
+
+  embed_text = 'Native sizes also work :health: :purse: (if a bit messy)'
+  text(str: embed_text, font: 'Serif 18', markup: true,
+       x: 0, y: 640, width: 180, height: 300,
+       align: :center, hint: :magenta) do |embed|
+    embed.svg key: ':health:', width: :native, height: :native, file: 'glass-heart.svg'
+    embed.png key: ':purse:',  width: :native, height: :native, file: 'shiny-purse.png'
   end
 
   save_png prefix: 'embed_'

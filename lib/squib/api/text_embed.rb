@@ -44,14 +44,13 @@ module Squib
       box   = Args::Box.new(self, {width: :native, height: :native}).load!(opts, expand_by: @deck_size, layout: @layout, dpi: @dpi)
       adjust= Args::EmbedAdjust.new.load!(opts, expand_by: @deck_size, layout: @layout, dpi: @dpi)
       trans = Args::Transform.new.load!(opts, expand_by: @deck_size, layout: @layout, dpi: @dpi)
-      ifile = Args::InputFile.new.load!(opts, expand_by: @deck_size, layout: @layout, dpi: @dpi)
       svg_args = Args::SvgSpecial.new.load!(opts, expand_by: @deck_size, layout: @layout, dpi: @dpi)
-      rule  = { type: :png, file: ifile, box: box, paint: paint, trans: trans, adjust: adjust }
+      rule  = { type: :png, file: ifile, box: box, paint: paint, trans: trans, adjust: adjust, computed_width: svg_args.computed_width(box.width) }
       rule[:draw] = Proc.new do |card, x, y|
         i = card.index
         b = box[i]
         b.x, b.y = x, y
-        card.svg(ifile[i].file, svg_args[i], b, paint[i], trans[i])
+        card.svg(svg_args[i], b, paint[i], trans[i])
       end
       @rules[key] = rule
     end
@@ -86,6 +85,7 @@ module Squib
       end
       @rules[key] = rule
     end
+
 
   end
 end
