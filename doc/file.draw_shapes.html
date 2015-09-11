@@ -65,15 +65,20 @@
 
 <span class='const'>Squib</span><span class='op'>::</span><span class='const'>Deck</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_background'>background</span> <span class='label'>color:</span> <span class='symbol'>:white</span>
+
+  <span class='id identifier rubyid_rect'>rect</span> <span class='label'>x:</span> <span class='int'>300</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>100</span><span class='comma'>,</span> <span class='label'>width:</span> <span class='int'>200</span><span class='comma'>,</span> <span class='label'>height:</span> <span class='int'>50</span><span class='comma'>,</span> <span class='label'>dash:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>4 2</span><span class='tstring_end'>&#39;</span></span>
+
   <span class='id identifier rubyid_rect'>rect</span> <span class='label'>x:</span> <span class='int'>300</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>300</span><span class='comma'>,</span> <span class='label'>width:</span> <span class='int'>400</span><span class='comma'>,</span> <span class='label'>height:</span> <span class='int'>400</span><span class='comma'>,</span>
-       <span class='label'>fill_color:</span> <span class='symbol'>:blue</span><span class='comma'>,</span> <span class='label'>stroke_color:</span> <span class='symbol'>:red</span><span class='comma'>,</span> <span class='label'>stroke_width:</span> <span class='float'>50.0</span>
+       <span class='label'>fill_color:</span> <span class='symbol'>:blue</span><span class='comma'>,</span> <span class='label'>stroke_color:</span> <span class='symbol'>:red</span><span class='comma'>,</span> <span class='label'>stroke_width:</span> <span class='float'>50.0</span><span class='comma'>,</span>
+       <span class='label'>join:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>bevel</span><span class='tstring_end'>&#39;</span></span>
 
   <span class='id identifier rubyid_circle'>circle</span> <span class='label'>x:</span> <span class='int'>600</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>600</span><span class='comma'>,</span> <span class='label'>radius:</span> <span class='int'>75</span><span class='comma'>,</span>
          <span class='label'>fill_color:</span> <span class='symbol'>:gray</span><span class='comma'>,</span> <span class='label'>stroke_color:</span> <span class='symbol'>:green</span><span class='comma'>,</span> <span class='label'>stroke_width:</span> <span class='float'>8.0</span>
 
   <span class='id identifier rubyid_triangle'>triangle</span> <span class='label'>x1:</span> <span class='int'>50</span><span class='comma'>,</span> <span class='label'>y1:</span> <span class='int'>50</span><span class='comma'>,</span>
            <span class='label'>x2:</span> <span class='int'>150</span><span class='comma'>,</span> <span class='label'>y2:</span> <span class='int'>150</span><span class='comma'>,</span>
-           <span class='label'>x3:</span> <span class='int'>75</span><span class='comma'>,</span> <span class='label'>y3:</span> <span class='int'>250</span>
+           <span class='label'>x3:</span> <span class='int'>75</span><span class='comma'>,</span> <span class='label'>y3:</span> <span class='int'>250</span><span class='comma'>,</span>
+           <span class='label'>fill_color:</span> <span class='symbol'>:gray</span><span class='comma'>,</span> <span class='label'>stroke_color:</span> <span class='symbol'>:green</span><span class='comma'>,</span> <span class='label'>stroke_width:</span> <span class='float'>3.0</span>
 
   <span class='id identifier rubyid_line'>line</span> <span class='label'>x1:</span> <span class='int'>50</span><span class='comma'>,</span> <span class='label'>y1:</span> <span class='int'>550</span><span class='comma'>,</span>
        <span class='label'>x2:</span> <span class='int'>150</span><span class='comma'>,</span> <span class='label'>y2:</span> <span class='int'>650</span><span class='comma'>,</span>
@@ -82,23 +87,28 @@
   <span class='id identifier rubyid_curve'>curve</span> <span class='label'>x1:</span> <span class='int'>50</span><span class='comma'>,</span>  <span class='label'>y1:</span> <span class='int'>850</span><span class='comma'>,</span> <span class='label'>cx1:</span> <span class='int'>150</span><span class='comma'>,</span> <span class='label'>cy1:</span> <span class='int'>700</span><span class='comma'>,</span>
         <span class='label'>x2:</span> <span class='int'>625</span><span class='comma'>,</span> <span class='label'>y2:</span> <span class='int'>900</span><span class='comma'>,</span> <span class='label'>cx2:</span> <span class='int'>150</span><span class='comma'>,</span> <span class='label'>cy2:</span> <span class='int'>700</span><span class='comma'>,</span>
         <span class='label'>stroke_width:</span> <span class='float'>12.0</span><span class='comma'>,</span> <span class='label'>stroke_color:</span> <span class='symbol'>:cyan</span><span class='comma'>,</span>
-        <span class='label'>fill_color:</span> <span class='symbol'>:burgundy</span>
+        <span class='label'>fill_color:</span> <span class='symbol'>:burgundy</span><span class='comma'>,</span> <span class='label'>cap:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>round</span><span class='tstring_end'>&#39;</span></span>
 
   <span class='id identifier rubyid_ellipse'>ellipse</span> <span class='label'>x:</span> <span class='int'>50</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>925</span><span class='comma'>,</span> <span class='label'>width:</span> <span class='int'>200</span><span class='comma'>,</span> <span class='label'>height:</span> <span class='int'>100</span><span class='comma'>,</span>
           <span class='label'>stroke_width:</span> <span class='float'>5.0</span><span class='comma'>,</span> <span class='label'>stroke_color:</span> <span class='symbol'>:cyan</span><span class='comma'>,</span>
           <span class='label'>fill_color:</span> <span class='symbol'>:burgundy</span>
 
-  <span class='id identifier rubyid_star'>star</span> <span class='label'>x:</span> <span class='int'>300</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>1000</span><span class='comma'>,</span> <span class='label'>n:</span> <span class='int'>5</span><span class='comma'>,</span> <span class='label'>inner_radius:</span> <span class='int'>10</span><span class='comma'>,</span> <span class='label'>outer_radius:</span> <span class='int'>25</span><span class='comma'>,</span>
-       <span class='label'>fill_color:</span> <span class='symbol'>:burgundy</span><span class='comma'>,</span> <span class='label'>stroke_color:</span> <span class='symbol'>:cyan</span><span class='comma'>,</span> <span class='label'>stroke_width:</span> <span class='int'>3</span>
+  <span class='id identifier rubyid_star'>star</span> <span class='label'>x:</span> <span class='int'>300</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>1000</span><span class='comma'>,</span> <span class='label'>n:</span> <span class='int'>5</span><span class='comma'>,</span> <span class='label'>inner_radius:</span> <span class='int'>15</span><span class='comma'>,</span> <span class='label'>outer_radius:</span> <span class='int'>40</span><span class='comma'>,</span>
+       <span class='label'>fill_color:</span> <span class='symbol'>:cyan</span><span class='comma'>,</span> <span class='label'>stroke_color:</span> <span class='symbol'>:burgundy</span><span class='comma'>,</span> <span class='label'>stroke_width:</span> <span class='int'>5</span>
+
+  <span class='comment'>#default draw is fill-then-stroke. Can be changed to stroke-then-fill
+</span>  <span class='id identifier rubyid_star'>star</span> <span class='label'>x:</span> <span class='int'>375</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>1000</span><span class='comma'>,</span> <span class='label'>n:</span> <span class='int'>5</span><span class='comma'>,</span> <span class='label'>inner_radius:</span> <span class='int'>15</span><span class='comma'>,</span> <span class='label'>outer_radius:</span> <span class='int'>40</span><span class='comma'>,</span>
+       <span class='label'>fill_color:</span> <span class='symbol'>:cyan</span><span class='comma'>,</span> <span class='label'>stroke_color:</span> <span class='symbol'>:burgundy</span><span class='comma'>,</span>
+       <span class='label'>stroke_width:</span> <span class='int'>5</span><span class='comma'>,</span> <span class='label'>stroke_strategy:</span> <span class='symbol'>:stroke_first</span>
 
   <span class='id identifier rubyid_polygon'>polygon</span> <span class='label'>x:</span> <span class='int'>500</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>1000</span><span class='comma'>,</span> <span class='label'>n:</span> <span class='int'>5</span><span class='comma'>,</span> <span class='label'>radius:</span> <span class='int'>25</span><span class='comma'>,</span> <span class='label'>angle:</span> <span class='const'>Math</span><span class='op'>::</span><span class='const'>PI</span> <span class='op'>/</span> <span class='int'>2</span><span class='comma'>,</span>
-          <span class='label'>fill_color:</span> <span class='symbol'>:burgundy</span><span class='comma'>,</span> <span class='label'>stroke_color:</span> <span class='symbol'>:cyan</span><span class='comma'>,</span> <span class='label'>stroke_width:</span> <span class='int'>2</span>
+          <span class='label'>fill_color:</span> <span class='symbol'>:cyan</span><span class='comma'>,</span> <span class='label'>stroke_color:</span> <span class='symbol'>:burgundy</span><span class='comma'>,</span> <span class='label'>stroke_width:</span> <span class='int'>2</span>
 
   <span class='id identifier rubyid_save_png'>save_png</span> <span class='label'>prefix:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>shape_</span><span class='tstring_end'>&#39;</span></span>
 <span class='kw'>end</span></pre></div></div>
 
     <div id="footer">
-  Generated on Tue May 26 20:54:27 2015 by
+  Generated on Fri Sep 11 11:05:21 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.0.0).
 </div>

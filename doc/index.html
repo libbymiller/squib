@@ -93,6 +93,8 @@
 
 <h2>Installation</h2>
 
+<p>Squib requires Ruby 2.0 or later.</p>
+
 <p>Install it yourself with:</p>
 
 <pre class="code ruby"><code class="ruby">$ gem install squib
@@ -108,15 +110,14 @@
 <pre class="code ruby"><code class="ruby">$ bundle
 </code></pre>
 
-<p>Note: Squib has some native dependencies, such as <a href="https://github.com/rcairo/rcairo">Cairo</a>, <a href="http://ruby-gnome2.sourceforge.jp/hiki.cgi?Pango%3A%3ALayout">Pango</a>, and <a href="http://nokogiri.org/">Nokogiri</a>, which may require compiling C code to install. This is usually not painful at all, but can cause headaches on some setups.</p>
+<p>Note: Squib has some native dependencies, such as <a href="https://github.com/rcairo/rcairo">Cairo</a>, <a href="http://ruby-gnome2.sourceforge.jp/hiki.cgi?Pango%3A%3ALayout">Pango</a>, and <a href="http://nokogiri.org/">Nokogiri</a>, which may require compiling C code to install. This is usually not painful at all, and is automated through Bundler/RubyGems, but can cause headaches on some setups.</p>
 
 <ul>
-<li>Windows: I <em>strongly</em> recommend using the <em>non-64 bit</em> RubyInstaller at <a href="http://rubyinstaller.org">http://rubyinstaller.org</a> along with installing DevKit.</li>
-<li>Mac: I recommend using <a href="https://rvm.io">rvm</a>.</li>
-<li>Cywgin is not 100% supported, but could potentially work with extra installation steps. See <a href="http://boardgamegeek.com/article/18508113#18508113">this thread</a></li>
+<li>Windows: I recommend using the <em>non-64 bit</em> RubyInstaller at <a href="http://rubyinstaller.org">http://rubyinstaller.org</a>. Some installations will also need DevKit. Currently, Ruby 2.2 on Windows conflicts with one of Squib&#39;s dependencies called Nokogiri (read the WTF-y issue here: <a href="https://github.com/sparklemotion/nokogiri/issues/1256">https://github.com/sparklemotion/nokogiri/issues/1256</a>) UPDATE: their pre-releases have fixed this exact issue - just install nokogiri-1.6.7.rc3-x64-mingw32 (or higher). Or, as a last resort, use 2.1 or 2.0 for Windows users.</li>
+<li>Mac: I recommend using <a href="https://rvm.io">rvm</a>. Some users have reported that Ruby 2.1 will not work with Mac OSX 10.10.4 (#88) - Ruby 2.0 and 2.2 are confirmed to work however (this is an rcairo issue, not a Squib issue).</li>
+<li>Cywgin is not supported, but could theoretically work with extra installation steps. See <a href="http://boardgamegeek.com/article/18508113#18508113">this thread</a>. Contributions in this area are welcome.</li>
+<li>Linux. No known installation issues. Happy installing!</li>
 </ul>
-
-<p>Squib requires Ruby 2.0 or later.</p>
 
 <h2>Getting Started</h2>
 
@@ -291,7 +292,18 @@ $ yard server --gems
        <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Only for Thinkers!</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
        <span class='label'>x:</span><span class='int'>25</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>500</span>
 
-  <span class='id identifier rubyid_save'>save</span> <span class='label'>prefix:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ranges_</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>format:</span> <span class='symbol'>:png</span>
+  <span class='comment'># Useful idiom: draw a different number of images for different cards
+</span>  <span class='id identifier rubyid_hearts'>hearts</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='int'>1</span><span class='comma'>,</span> <span class='int'>2</span><span class='rbracket'>]</span> <span class='comment'>#i.e. card 0 has no hearts, card 2 has 2 hearts drawn
+</span>  <span class='int'>1</span><span class='period'>.</span><span class='id identifier rubyid_upto'>upto</span><span class='lparen'>(</span><span class='int'>2</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_n'>n</span><span class='op'>|</span>
+    <span class='id identifier rubyid_range'>range</span> <span class='op'>=</span> <span class='id identifier rubyid_hearts'>hearts</span><span class='period'>.</span><span class='id identifier rubyid_each_index'>each_index</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span> <span class='id identifier rubyid_hearts'>hearts</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='id identifier rubyid_n'>n</span><span class='rbrace'>}</span>
+    <span class='id identifier rubyid_n'>n</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
+      <span class='id identifier rubyid_svg'>svg</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>glass-heart.svg</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>range:</span> <span class='id identifier rubyid_range'>range</span><span class='comma'>,</span>
+          <span class='label'>x:</span> <span class='int'>150</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>55</span> <span class='op'>+</span> <span class='id identifier rubyid_i'>i</span><span class='op'>*</span><span class='int'>42</span><span class='comma'>,</span> <span class='label'>width:</span> <span class='int'>40</span><span class='comma'>,</span> <span class='label'>height:</span> <span class='int'>40</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_rect'>rect</span> <span class='label'>color:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>black</span><span class='tstring_end'>&#39;</span></span> <span class='comment'># just a border
+</span>  <span class='id identifier rubyid_save_sheet'>save_sheet</span> <span class='label'>prefix:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ranges_</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>columns:</span> <span class='int'>3</span>
 <span class='kw'>end</span></pre></p>
 
 <h2>Units</h2>
@@ -434,20 +446,33 @@ $ yard server --gems
 
 <h2>Working with Text</h2>
 
-<p>The <code>text</code> method is a particularly powerful method with a ton of options. Be sure to check the <a href="docs/Squib/Deck#text-instance_method">API docs</a> on an option-by-option discussion, but here are the highlights.</p>
+<p>The <code>text</code> method is a particularly powerful method with a ton of options. Be sure to check the <a href="/squib/doc/Squib/Deck#text-instance_method">API docs</a> on an option-by-option discussion, but here are the highlights.</p>
 
-<p><strong>Fonts</strong>. The font is specified in a given Pango &quot;font string&quot;, which can involve a ton of options embedded there in the string. In addition to the typical bold and italic variations, you can also specify all-caps, the specific boldness weight (e.g. 900), or go with oblique. These options are only available if the underlying font supports them, however. Here&#39;s are some example Pango font strings:</p>
+<h3>Fonts.</h3>
 
-<pre class="code ruby"><code class="ruby">Sans 18
-Arial,Verdana weight=900 style=oblique 36
-Times New Roman,Sans 25
+<p>To set the font, your <code>text</code> method call will look something like this:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Hello</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>MyFont Bold 32</span><span class='tstring_end'>&#39;</span></span>
 </code></pre>
 
-<p>Note: When the font has a space it, you&#39;ll need to put a backup to get Pango&#39;s parsing to work.</p>
+<p>The <code>&#39;MyFont Bold 32&#39;</code> is specified as a &quot;Pango font string&quot;, which can involve <a href="http://ruby-gnome2.osdn.jp/hiki.cgi?Pango%3A%3AFontDescription#Pango%3A%3AFontDescription.new">a lot of options</a> including backup font families, size, all-caps, stretch, oblique, italic, and degree of boldness. (These options are only available if the underlying font supports them, however.) Here&#39;s are some <code>text</code> calls with different Pango font strings:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Hello</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Sans 18</span><span class='tstring_end'>&#39;</span></span>
+<span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Hello</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Arial,Verdana weight=900 style=oblique 36</span><span class='tstring_end'>&#39;</span></span>
+<span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Hello</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Times New Roman,Sans 25</span><span class='tstring_end'>&#39;</span></span>
+</code></pre>
+
+<p>Note: When the font has a space in the name (e.g. Times New Roman), you&#39;ll need to put a backup to get Pango&#39;s parsing to work.</p>
 
 <p>It&#39;s also important to note that most of the font rendering is done by a combination of your installed fonts, your OS, and your graphics card. Thus, different systems will render text slightly differently.</p>
 
-<p>Furthermore, options like <code>font_size</code> allow you to override the font string. This means that you can set a blanket font for the whole deck, then adjust sizes from there. This is useful with layouts and <code>extends</code> too.</p>
+<p>Fonts can also be set globally using the <code>set</code> method. For example:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_set'>set</span> <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Arial 26</span><span class='tstring_end'>&#39;</span></span>
+<span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>blah</span><span class='tstring_end'>&#39;</span></span> <span class='comment'># in Arial 26
+</span></code></pre>
+
+<p>Furthermore, Squib&#39;s <code>text</code> method has options such as <code>font_size</code> that allow you to override the font string. This means that you can set a blanket font for the whole deck, then adjust sizes from there. This is useful with layouts and <code>extends</code> too.</p>
 
 <h3>Width and Height</h3>
 
@@ -543,12 +568,12 @@ Times New Roman,Sans 25
   <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Font string sizes can be overridden per card.</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>x:</span> <span class='int'>65</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>350</span><span class='comma'>,</span>
        <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Impact 36</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>font_size:</span> <span class='lbracket'>[</span><span class='int'>16</span><span class='comma'>,</span> <span class='int'>20</span><span class='comma'>,</span> <span class='int'>24</span><span class='rbracket'>]</span>
 
-  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>This text has fixed width, fixed height, center-aligned, middle-valigned, has a red hint, and &quot;smart quotes&quot;</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>This text has fixed width, fixed height, center-aligned, middle-valigned, and has a red hint</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
        <span class='label'>hint:</span> <span class='symbol'>:red</span><span class='comma'>,</span>
        <span class='label'>x:</span> <span class='int'>65</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>400</span><span class='comma'>,</span>
        <span class='label'>width:</span> <span class='int'>300</span><span class='comma'>,</span> <span class='label'>height:</span> <span class='int'>125</span><span class='comma'>,</span>
        <span class='label'>align:</span> <span class='symbol'>:center</span><span class='comma'>,</span> <span class='label'>valign:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>MIDDLE</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='comment'># these can be specified with case-insenstive strings too
-</span>       <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Serif 16</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>quotes:</span> <span class='lbracket'>[</span><span class='symbol'>:smart</span><span class='comma'>,</span><span class='symbol'>:smart</span><span class='comma'>,</span> <span class='symbol'>:dumb</span><span class='rbracket'>]</span>
+</span>       <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Serif 16</span><span class='tstring_end'>&#39;</span></span>
 
   <span class='id identifier rubyid_extents'>extents</span> <span class='op'>=</span> <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Ink extent return value</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
        <span class='label'>x:</span> <span class='int'>65</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>550</span><span class='comma'>,</span>
@@ -570,15 +595,16 @@ Times New Roman,Sans 25
 
   <span class='comment'># Text hints are guides for showing you how your text boxes are laid out exactly
 </span>  <span class='id identifier rubyid_hint'>hint</span> <span class='label'>text:</span> <span class='symbol'>:cyan</span>
-  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Text hints are also globally togglable!</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-        <span class='label'>x:</span> <span class='int'>65</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>625</span><span class='comma'>,</span>
-        <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Arial 22</span><span class='tstring_end'>&#39;</span></span>
-  <span class='id identifier rubyid_hint'>hint</span> <span class='label'>text:</span> <span class='symbol'>:off</span>
+  <span class='id identifier rubyid_set'>set</span> <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Serif 20</span><span class='tstring_end'>&#39;</span></span> <span class='comment'># Impacts all future text calls (unless they specify differently)
+</span>  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Text hints &amp; fonts are globally togglable!</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>x:</span> <span class='int'>65</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>625</span>
+  <span class='id identifier rubyid_set'>set</span> <span class='label'>font:</span> <span class='symbol'>:default</span> <span class='comment'># back to Squib-wide default
+</span>  <span class='id identifier rubyid_hint'>hint</span> <span class='label'>text:</span> <span class='symbol'>:off</span>
   <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>See? No hint here.</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
         <span class='label'>x:</span> <span class='int'>565</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>625</span><span class='comma'>,</span>
         <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Arial 22</span><span class='tstring_end'>&#39;</span></span>
 
-  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Rotated</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+  <span class='comment'># Text can be rotated, in radians, about the upper-left corner of the text box.
+</span>  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Rotated</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
         <span class='label'>x:</span> <span class='int'>565</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>675</span><span class='comma'>,</span> <span class='label'>angle:</span> <span class='float'>0.2</span><span class='comma'>,</span>
         <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Arial 18</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>hint:</span> <span class='symbol'>:red</span>
 
@@ -586,7 +612,7 @@ Times New Roman,Sans 25
 </span>  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='id identifier rubyid_longtext'>longtext</span><span class='comma'>,</span> <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Arial 16</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
        <span class='label'>x:</span> <span class='int'>65</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>700</span><span class='comma'>,</span>
        <span class='label'>width:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>1.5in</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>height:</span> <span class='id identifier rubyid_inches'>inches</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span><span class='comma'>,</span>
-       <span class='label'>justify:</span> <span class='kw'>true</span>
+       <span class='label'>justify:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>spacing:</span> <span class='op'>-</span><span class='int'>6</span>
 
   <span class='comment'># Here&#39;s how you embed images into text.
 </span>  <span class='comment'># Pass a block to the method call and use the given context
@@ -598,17 +624,24 @@ Times New Roman,Sans 25
     <span class='id identifier rubyid_embed'>embed</span><span class='period'>.</span><span class='id identifier rubyid_svg'>svg</span> <span class='label'>key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>:health:</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>width:</span> <span class='int'>28</span><span class='comma'>,</span> <span class='label'>height:</span> <span class='int'>28</span><span class='comma'>,</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>glass-heart.svg</span><span class='tstring_end'>&#39;</span></span>
   <span class='kw'>end</span>
 
-  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Stroke n &lt;span fgcolor=\&quot;\#ff0000\&quot;&gt;fill&lt;/span&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Fill n &lt;span fgcolor=\&quot;\#ff0000\&quot;&gt;stroke&lt;/span&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
        <span class='label'>color:</span> <span class='symbol'>:green</span><span class='comma'>,</span> <span class='label'>stroke_width:</span> <span class='float'>2.0</span><span class='comma'>,</span> <span class='label'>stroke_color:</span> <span class='symbol'>:blue</span><span class='comma'>,</span>
-       <span class='label'>x:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>1.8in</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>y:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>3in</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>width:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>0.85in</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Sans Bold 26</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>markup:</span> <span class='kw'>true</span>
+       <span class='label'>x:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>1.8in</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>y:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>2.9in</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>width:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>0.85in</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Sans Bold 26</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>markup:</span> <span class='kw'>true</span>
 
-  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;b&gt;Markup&lt;/b&gt; is &lt;i&gt;quite&lt;/i&gt; &lt;s&gt;&#39;easy&#39;&lt;/s&gt; &lt;span fgcolor=\&quot;\#ff0000\&quot;&gt;awesome&lt;/span&gt;. Can&#39;t beat those \&quot;smart\&quot; &#39;quotes&#39;, now with 10--20% more en-dashes --- and em-dashes --- with explicit ellipses too...</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Stroke n &lt;span fgcolor=\&quot;\#ff0000\&quot;&gt;fill&lt;/span&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+       <span class='label'>color:</span> <span class='symbol'>:green</span><span class='comma'>,</span> <span class='label'>stroke_width:</span> <span class='float'>2.0</span><span class='comma'>,</span> <span class='label'>stroke_color:</span> <span class='symbol'>:blue</span><span class='comma'>,</span> <span class='label'>stroke_strategy:</span> <span class='symbol'>:stroke_first</span><span class='comma'>,</span>
+       <span class='label'>x:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>1.8in</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>y:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>3.0in</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>width:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>0.85in</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Sans Bold 26</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>markup:</span> <span class='kw'>true</span>
+
+  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Dotted</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+       <span class='label'>color:</span> <span class='symbol'>:white</span><span class='comma'>,</span> <span class='label'>stroke_width:</span> <span class='float'>2.0</span><span class='comma'>,</span> <span class='label'>dash:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>4 2</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>stroke_color:</span> <span class='symbol'>:black</span><span class='comma'>,</span>
+       <span class='label'>x:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>1.8in</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>y:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>3.1in</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>width:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>0.85in</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Sans Bold 26</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>markup:</span> <span class='kw'>true</span>
+  <span class='comment'>#
+</span>  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;b&gt;Markup&lt;/b&gt; is &lt;i&gt;quite&lt;/i&gt; &lt;s&gt;&#39;easy&#39;&lt;/s&gt; &lt;span fgcolor=\&quot;\#ff0000\&quot;&gt;awesome&lt;/span&gt;. Can&#39;t beat those \&quot;smart\&quot; &#39;quotes&#39;, now with 10--20% more en-dashes --- and em-dashes --- with explicit ellipses too...</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
        <span class='label'>markup:</span> <span class='kw'>true</span><span class='comma'>,</span>
        <span class='label'>x:</span> <span class='int'>50</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>1000</span><span class='comma'>,</span>
        <span class='label'>width:</span> <span class='int'>750</span><span class='comma'>,</span> <span class='label'>height:</span> <span class='int'>100</span><span class='comma'>,</span>
        <span class='label'>valign:</span> <span class='symbol'>:bottom</span><span class='comma'>,</span>
        <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Serif 18</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>hint:</span> <span class='symbol'>:cyan</span>
-
 
   <span class='id identifier rubyid_save'>save</span> <span class='label'>prefix:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>text_</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>format:</span> <span class='symbol'>:png</span>
 <span class='kw'>end</span></pre></p>
@@ -694,15 +727,13 @@ Times New Roman,Sans 25
 <span class='kw'>end</span>
 
 <span class='const'>Squib</span><span class='op'>::</span><span class='const'>Deck</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>cards:</span> <span class='int'>3</span><span class='rparen'>)</span> <span class='kw'>do</span>
-
-  <span class='id identifier rubyid_embed_text'>embed_text</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Take 1 :tool: and gain 2 :health:.</span><span class='tstring_end'>&#39;</span></span>
-  <span class='id identifier rubyid_text'>text</span><span class='lparen'>(</span><span class='label'>str:</span> <span class='id identifier rubyid_embed_text'>embed_text</span><span class='comma'>,</span> <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Sans</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>font_size:</span> <span class='lbracket'>[</span><span class='int'>18</span><span class='comma'>,</span> <span class='int'>32</span><span class='comma'>,</span> <span class='int'>45</span><span class='rbracket'>]</span><span class='comma'>,</span>
+  <span class='id identifier rubyid_str'>str</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Take 1 :tool: and gain 2 :health:.</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_text'>text</span><span class='lparen'>(</span><span class='label'>str:</span> <span class='id identifier rubyid_str'>str</span><span class='comma'>,</span> <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Sans</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>font_size:</span> <span class='lbracket'>[</span><span class='int'>18</span><span class='comma'>,</span> <span class='int'>26</span><span class='comma'>,</span> <span class='int'>35</span><span class='rbracket'>]</span><span class='comma'>,</span>
        <span class='label'>x:</span> <span class='int'>0</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>0</span><span class='comma'>,</span> <span class='label'>width:</span> <span class='int'>180</span><span class='comma'>,</span> <span class='label'>height:</span> <span class='int'>300</span><span class='comma'>,</span> <span class='label'>valign:</span> <span class='symbol'>:bottom</span><span class='comma'>,</span>
        <span class='label'>align:</span> <span class='symbol'>:left</span><span class='comma'>,</span> <span class='label'>ellipsize:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>justify:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>hint:</span> <span class='symbol'>:cyan</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_embed'>embed</span><span class='op'>|</span>
-    <span class='id identifier rubyid_embed'>embed</span><span class='period'>.</span><span class='id identifier rubyid_svg'>svg</span> <span class='label'>key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>:tool:</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>   <span class='label'>width:</span> <span class='int'>28</span><span class='comma'>,</span> <span class='label'>height:</span> <span class='int'>28</span><span class='comma'>,</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>spanner.svg</span><span class='tstring_end'>&#39;</span></span>
-    <span class='id identifier rubyid_embed'>embed</span><span class='period'>.</span><span class='id identifier rubyid_svg'>svg</span> <span class='label'>key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>:health:</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>width:</span> <span class='int'>28</span><span class='comma'>,</span> <span class='label'>height:</span> <span class='int'>28</span><span class='comma'>,</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>glass-heart.svg</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_embed'>embed</span><span class='period'>.</span><span class='id identifier rubyid_svg'>svg</span> <span class='label'>key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>:tool:</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>   <span class='label'>width:</span> <span class='lbracket'>[</span><span class='int'>28</span><span class='comma'>,</span> <span class='int'>42</span><span class='comma'>,</span> <span class='int'>56</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>height:</span> <span class='lbracket'>[</span><span class='int'>28</span><span class='comma'>,</span> <span class='int'>42</span><span class='comma'>,</span> <span class='int'>56</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>spanner.svg</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_embed'>embed</span><span class='period'>.</span><span class='id identifier rubyid_svg'>svg</span> <span class='label'>key:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>:health:</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>width:</span> <span class='lbracket'>[</span><span class='int'>28</span><span class='comma'>,</span> <span class='int'>42</span><span class='comma'>,</span> <span class='int'>56</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>height:</span> <span class='lbracket'>[</span><span class='int'>28</span><span class='comma'>,</span> <span class='int'>42</span><span class='comma'>,</span> <span class='int'>56</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>glass-heart.svg</span><span class='tstring_end'>&#39;</span></span>
   <span class='kw'>end</span>
-  <span class='id identifier rubyid_save_png'>save_png</span> <span class='label'>prefix:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>embed_multi_</span><span class='tstring_end'>&#39;</span></span>
   <span class='id identifier rubyid_save_sheet'>save_sheet</span> <span class='label'>prefix:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>embed_multisheet_</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>columns:</span> <span class='int'>3</span>
 <span class='kw'>end</span></pre></p>
 
@@ -861,7 +892,11 @@ child_b:
 
 <h3>Built-in Layout Files</h3>
 
-<p>If your layout file is not found in the current directory, Squib will search for its own set of layout files (here&#39;s the latest the development version <a href="https://github.com/andymeneely/squib/tree/master/lib/squib/layouts">on GitHub</a>. See the <code>layouts.rb</code> sample found <a href="https://github.com/andymeneely/squib/tree/master/samples/">here</a> for some demonstrative examples.</p>
+<p>Why mess with x-y coordinates when you&#39;re first prototyping your game?!?!? Just use a built-in layout to get your game to the table as quickly as possible.</p>
+
+<p>If your layout file is not found in the current directory, Squib will search for its own set of layout files.  The latest the development version of these can be found <a href="https://github.com/andymeneely/squib/tree/master/lib/squib/layouts">on GitHub</a>. The <code>layouts_builtin.rb</code> sample (found <a href="https://github.com/andymeneely/squib/tree/master/samples/">here</a>) demonstrate built-in layouts based on popular games (e.g. <code>fantasy.yml</code> and <code>economy.yml</code>)</p>
+
+<p>Contributions in this area are particularly welcome!</p>
 
 <h3>Layout Sample</h3>
 
@@ -869,6 +904,7 @@ child_b:
 
 <p><pre class="code ruby"><span class='comment'># encoding: utf-8
 </span><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>squib</span><span class='tstring_end'>&#39;</span></span>
+<span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>pp</span><span class='tstring_end'>&#39;</span></span>
 
 <span class='const'>Squib</span><span class='op'>::</span><span class='const'>Deck</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>layout:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>custom-layout.yml</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_background'>background</span> <span class='label'>color:</span> <span class='symbol'>:white</span>
@@ -897,8 +933,8 @@ child_b:
 </span>  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>subtitle</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>layout:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>subtitle</span><span class='tstring_end'>&#39;</span></span>
 
   <span class='comment'># For debugging purposes, you can always print out the loaded layout
-</span>  <span class='comment'>#require &#39;pp&#39;
-</span>  <span class='comment'>#pp @layout
+</span>  <span class='comment'># require &#39;pp&#39;
+</span>  <span class='comment'># pp layout
 </span>
   <span class='id identifier rubyid_save_png'>save_png</span> <span class='label'>prefix:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>layout_</span><span class='tstring_end'>&#39;</span></span>
 <span class='kw'>end</span>
@@ -980,7 +1016,7 @@ child_b:
        <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Arial 72</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>align:</span> <span class='symbol'>:center</span>
 
   <span class='comment'># Progress bars are shown for these commands
-</span>  <span class='comment'># And images are taken from config-imgdir
+</span>  <span class='comment'># And images are taken from img_dir, not the cwd.
 </span>  <span class='id identifier rubyid_png'>png</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>shiny-purse2.png</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>x:</span> <span class='int'>620</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>75</span>
   <span class='id identifier rubyid_svg'>svg</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>spanner2.svg</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>x:</span> <span class='int'>620</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>218</span>
   <span class='id identifier rubyid_save_png'>save_png</span> <span class='label'>prefix:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>custom-config_</span><span class='tstring_end'>&#39;</span></span>
@@ -1022,6 +1058,10 @@ child_b:
 
 <p>If you REALLY want to see tons of output, you can also set DEBUG, but that&#39;s not intended for general consumption.</p>
 
+<h1>&quot;Best&quot; Practices</h1>
+
+<p>Here&#39;s a collection of workflow tips and code snippets that will hopefully improve your Squibbing. Contributions are welcome!</p>
+
 <h2>Staying DRY</h2>
 
 <p>Squib tries to keep you DRY (Don&#39;t Repeat Yourself) with the following features:</p>
@@ -1031,6 +1071,20 @@ child_b:
 <li>Flexible ranges and array handling: the <code>range</code> parameter in Squib is very flexible, meaning that one <code>text</code> command can specify different text in different fonts, styles, colors, etc. for each card. If you find yourself doing multiple <code>text</code> command for the same field across different ranges of cards, there&#39;s probably a better way to condense.</li>
 <li>Custom colors keep you from hardcoding magic color strings everywhere. Custom colors go into <code>config.yml</code> file.</li>
 <li>Plus, you know, Ruby.</li>
+</ul>
+
+<h2>Get to know Ruby&#39;s Array and Enumerable</h2>
+
+<p>Don&#39;t know Ruby? Welcome! We are so happy that Squib is your excuse to learn Ruby.</p>
+
+<p>Ruby has a <em>very</em> rich library for all of its built-in data types, especially <a href="http://ruby-doc.org/core-2.2.0/Array.html">Array</a>, and it&#39;s broader module <a href="http://ruby-doc.org/core-2.2.0/Enumerable.html">Enumerable</a>. Since Squib primarily takes in arrays into most of its fields, getting to know these methods will help you out enormously:</p>
+
+<ul>
+<li><a href="http://ruby-doc.org/core-2.2.0/Array.html#method-i-each">Array#each</a> - do something on each element of the array (Ruby folks seldom use for-loops)</li>
+<li><a href="http://ruby-doc.org/core-2.2.0/Array.html#method-i-map">Array#map</a> - do something on each element of an array and put it into a new array</li>
+<li><a href="http://ruby-doc.org/core-2.2.0/Array.html#method-i-select">Array#select</a> - select a subset of an array</li>
+<li><a href="http://ruby-doc.org/core-2.2.0/Enumerable.html#method-i-each_with_index">Enumerable#each_with_index</a> - do something to each element, also being aware of the index</li>
+<li><a href="http://ruby-doc.org/core-2.2.0/Enumerable.html#method-i-zip">Array#zip</a> - combine two arrays, element by element</li>
 </ul>
 
 <h2>Source control</h2>
@@ -1087,11 +1141,59 @@ child_b:
 
 <p>We don&#39;t officially support Google Sheets (<a href="https://github.com/andymeneely/squib/issues/49">yet</a>), but <a href="https://gist.github.com/pickfifteen/aeee73ec2ce162b0aee8">this Gist</a> might be helpful in automatically exporting the CSV.</p>
 
+<h2>Combining Multiple Columns</h2>
+
+<p>Say you have multiple columns in your Excel sheet that need to be combined into one text field on your card. Consider using <code>zip</code> in conjunction with <code>map</code>.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>BuyText</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>BuyAmount</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_zip'>zip</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>BuyType</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_amt'>amt</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span><span class='op'>|</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>You may purchase </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_amt'>amt</span><span class='embexpr_end'>}</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_type'>type</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='comment'>#e.g. You may purchase 1 Wood.
+</span><span class='kw'>end</span>
+
+<span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Cost</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Action Cost</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_zip'>zip</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Card Cost</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_ac'>ac</span><span class='comma'>,</span> <span class='id identifier rubyid_cc'>cc</span><span class='op'>|</span>
+  <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>:action:</span><span class='tstring_end'>&#39;</span></span> <span class='op'>*</span> <span class='id identifier rubyid_ac'>ac</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>:card</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_cc'>cc</span><span class='embexpr_end'>}</span><span class='tstring_content'>:</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p>Second example adapted from <a href="https://github.com/andymeneely/squib/issues/90">this conversation</a></p>
+
 <h1>Get Involved</h1>
 
-<p>Squib is an open source tool, and I welcome participation. Squib is currently in pre-release alpha, so the API is still maturing. I do change my mind about the names and meaning of things at this stage. I will document these changes as best as I can. I also highly recommend upgrading to new versions of Squib every chance you get (using Bundler).</p>
+<p>Squib is an open source tool, so I welcome participation. Squib is currently in pre-release alpha, so the API is still maturing. I do change my mind about the names and meaning of things at this stage. I will document these changes as best as I can.</p>
 
-<p>Feel free to <a href="https://github.com/andymeneely/squib/issues">file a bug or feature request</a>. For bugs, a minimal code example along with your OS and Ruby details would be ideal.</p>
+<p>I also highly recommend upgrading to new versions of Squib every chance you get (using Bundler). You can watch for new upgrades by following the RubyGems <a href="https://rubygems.org/gems/squib/versions.atom">RSS</a>, or by watching the project on GitHub.</p>
+
+<p>For bugs and feature requests, feel free to <a href="https://github.com/andymeneely/squib/issues">file a bug or feature request</a>. A minimal code example along with your OS and Ruby details would be ideal.</p>
+
+<h2>New to Programming?</h2>
+
+<p>I often hear statements like &quot;I&#39;m not a programmer, but I want to use Squib.&quot; If you want to use Squib, then maybe you really were a programmer all along :)</p>
+
+<p>Squib is a Ruby library. To learn Squib, you will need to learn Ruby. There is no getting around that fact. Don&#39;t fight it, embrace it.</p>
+
+<p>Fortunately, Ruby is wonderfully rich in features and very expressive in its syntax. Ruby has a vibrant, friendly community (much like tabletop game designers!). Ruby is the language of choice for many new programmers, including many universities. Plus, learning how to code is ubiquitous on the Internet.</p>
+
+<p>Doubly fortunately, Squib doesn&#39;t require tons of Ruby-fu to get going either. The main things you&#39;ll need to know are:</p>
+
+<ul>
+<li>Working on the command line</li>
+<li>Ruby Arrays, so that the <code>range</code> parameter makes more sense</li>
+<li>Strings, variables, and symbols</li>
+<li>If you are using Excel or CSV, then Ruby hashes are worth a glance.</li>
+<li>Working iteratively: making small edits and run your code frequently (every few minutes)</li>
+</ul>
+
+<p>Anything related to Ruby on Rails is not necessary to learn for Squib. Rails is a heavyweight framework for web development (awesome in its own way, but not relevant to learning Ruby). Squib is about scripting.</p>
+
+<h2>Get Help</h2>
+
+<p>There are lots of people using Squib already. If you&#39;ve gone through the <a href="https://github.com/andymeneely/squib/tree/master/samples">samples</a> and still have questions, here are some other places to get help.</p>
+
+<ul>
+<li>Our <a href="http://boardgamegeek.com/thread/1293453">thread on BoardGameGeek</a> is quite active and informal (if a bit unstructured).</li>
+<li><a href="http://stackoverflow.com/questions/ask?tags=ruby%20squib">StackOverflow</a> with the tag &quot;ruby&quot; and &quot;squib&quot; will get you answers quickly and a great way to document questions for future Squibbers.</li>
+</ul>
+
+<p>Please use GitHub issues for bugs and feature requests.</p>
 
 <h2>Testing Pre-Builds</h2>
 
@@ -1131,7 +1233,7 @@ child_b:
 </div></div>
 
     <div id="footer">
-  Generated on Tue May 26 20:54:27 2015 by
+  Generated on Fri Sep 11 11:05:21 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.0.0).
 </div>

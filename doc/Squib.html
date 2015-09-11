@@ -80,7 +80,7 @@
   
     <dt class="r1 last">Defined in:</dt>
     <dd class="r1 last">lib/squib/deck.rb<span class="defines">,<br />
-  lib/squib.rb,<br /> lib/squib/card.rb,<br /> lib/squib/conf.rb,<br /> lib/squib/version.rb,<br /> lib/squib/api/text.rb,<br /> lib/squib/api/data.rb,<br /> lib/squib/api/save.rb,<br /> lib/squib/progress.rb,<br /> lib/squib/api/units.rb,<br /> lib/squib/constants.rb,<br /> lib/squib/api/image.rb,<br /> lib/squib/api/shapes.rb,<br /> lib/squib/api/settings.rb,<br /> lib/squib/commands/new.rb,<br /> lib/squib/graphics/hand.rb,<br /> lib/squib/input_helpers.rb,<br /> lib/squib/layout_parser.rb,<br /> lib/squib/graphics/text.rb,<br /> lib/squib/api/text_embed.rb,<br /> lib/squib/graphics/image.rb,<br /> lib/squib/api/background.rb,<br /> lib/squib/graphics/shapes.rb,<br /> lib/squib/args/typographer.rb,<br /> lib/squib/graphics/showcase.rb,<br /> lib/squib/graphics/save_doc.rb,<br /> lib/squib/graphics/background.rb,<br /> lib/squib/args/unit_conversion.rb,<br /> lib/squib/graphics/save_images.rb,<br /> lib/squib/graphics/gradient_regex.rb,<br /> lib/squib/graphics/cairo_context_wrapper.rb</span>
+  lib/squib.rb,<br /> lib/squib/card.rb,<br /> lib/squib/conf.rb,<br /> lib/squib/version.rb,<br /> lib/squib/api/data.rb,<br /> lib/squib/api/text.rb,<br /> lib/squib/progress.rb,<br /> lib/squib/args/box.rb,<br /> lib/squib/api/save.rb,<br /> lib/squib/api/units.rb,<br /> lib/squib/constants.rb,<br /> lib/squib/args/draw.rb,<br /> lib/squib/api/image.rb,<br /> lib/squib/api/shapes.rb,<br /> lib/squib/args/paint.rb,<br /> lib/squib/args/sheet.rb,<br /> lib/squib/args/coords.rb,<br /> lib/squib/api/settings.rb,<br /> lib/squib/commands/new.rb,<br /> lib/squib/graphics/hand.rb,<br /> lib/squib/layout_parser.rb,<br /> lib/squib/graphics/text.rb,<br /> lib/squib/args/scale_box.rb,<br /> lib/squib/args/embed_key.rb,<br /> lib/squib/args/paragraph.rb,<br /> lib/squib/api/text_embed.rb,<br /> lib/squib/args/transform.rb,<br /> lib/squib/graphics/image.rb,<br /> lib/squib/api/background.rb,<br /> lib/squib/graphics/shapes.rb,<br /> lib/squib/args/card_range.rb,<br /> lib/squib/args/input_file.rb,<br /> lib/squib/args/save_batch.rb,<br /> lib/squib/args/arg_loader.rb,<br /> lib/squib/args/typographer.rb,<br /> lib/squib/args/svg_special.rb,<br /> lib/squib/graphics/save_doc.rb,<br /> lib/squib/args/hand_special.rb,<br /> lib/squib/graphics/showcase.rb,<br /> lib/squib/args/embed_adjust.rb,<br /> lib/squib/args/dir_validator.rb,<br /> lib/squib/graphics/background.rb,<br /> lib/squib/args/unit_conversion.rb,<br /> lib/squib/graphics/save_images.rb,<br /> lib/squib/args/color_validator.rb,<br /> lib/squib/args/showcase_special.rb,<br /> lib/squib/graphics/gradient_regex.rb,<br /> lib/squib/graphics/cairo_context_wrapper.rb</span>
 </dd>
   
 </dl>
@@ -130,7 +130,7 @@ e.g. v0.0.5a is on its way to becoming v0.0.5</p>
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>0.6.0a</span><span class='tstring_end'>&#39;</span></span></pre></dd>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>0.7.0</span><span class='tstring_end'>&#39;</span></span></pre></dd>
       
         <dt id="SYSTEM_DEFAULTS-constant" class="">SYSTEM_DEFAULTS =
           <div class="docstring">
@@ -474,15 +474,17 @@ data = csv file: &#39;data.csv&#39;
 70
 71
 72
-73</pre>
+73
+74</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/squib/api/data.rb', line 63</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_csv'>csv</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_file'>file</span> <span class='op'>=</span> <span class='const'>Args</span><span class='op'>::</span><span class='const'>InputFile</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>deck.csv</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_load!'>load!</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_file'>file</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='const'>Squib</span><span class='op'>::</span><span class='const'>SYSTEM_DEFAULTS</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='const'>Squib</span><span class='op'>::</span><span class='const'>InputHelpers</span><span class='period'>.</span><span class='id identifier rubyid_fileify'>fileify</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_table'>table</span> <span class='op'>=</span> <span class='const'>CSV</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:file</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>headers:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>converters:</span> <span class='symbol'>:numeric</span><span class='rparen'>)</span>
+  <span class='comment'># opts = Squib::InputHelpers.fileify(opts)
+</span>  <span class='id identifier rubyid_table'>table</span> <span class='op'>=</span> <span class='const'>CSV</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span><span class='lparen'>(</span><span class='id identifier rubyid_file'>file</span><span class='comma'>,</span> <span class='label'>headers:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>converters:</span> <span class='symbol'>:numeric</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_check_duplicate_csv_headers'>check_duplicate_csv_headers</span><span class='lparen'>(</span><span class='id identifier rubyid_table'>table</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_hash'>hash</span> <span class='op'>=</span> <span class='const'>Hash</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
   <span class='id identifier rubyid_table'>table</span><span class='period'>.</span><span class='id identifier rubyid_headers'>headers</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_header'>header</span><span class='op'>|</span>
@@ -563,8 +565,8 @@ Use this to suppress or increase output levels.</p>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_logger'>logger</span>
   <span class='kw'>if</span> <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
-    <span class='ivar'>@logger</span> <span class='op'>=</span> <span class='const'>Logger</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='gvar'>$stdout</span><span class='rparen'>)</span><span class='semicolon'>;</span>
-    <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_level'>level</span> <span class='op'>=</span> <span class='const'>Logger</span><span class='op'>::</span><span class='const'>WARN</span><span class='semicolon'>;</span>
+    <span class='ivar'>@logger</span> <span class='op'>=</span> <span class='const'>Logger</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='gvar'>$stdout</span><span class='rparen'>)</span>
+    <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_level'>level</span> <span class='op'>=</span> <span class='const'>Logger</span><span class='op'>::</span><span class='const'>WARN</span>
     <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_formatter'>formatter</span> <span class='op'>=</span> <span class='id identifier rubyid_proc'>proc</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_severity'>severity</span><span class='comma'>,</span> <span class='id identifier rubyid_datetime'>datetime</span><span class='comma'>,</span> <span class='id identifier rubyid_m_progname'>m_progname</span><span class='comma'>,</span> <span class='id identifier rubyid_msg'>msg</span><span class='op'>|</span>
       <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_datetime'>datetime</span><span class='embexpr_end'>}</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_severity'>severity</span><span class='embexpr_end'>}</span><span class='tstring_content'>: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_msg'>msg</span><span class='embexpr_end'>}</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span>
     <span class='kw'>end</span>
@@ -692,7 +694,6 @@ See the example <code>samples/excel.rb</code> in the <a href="https://github.com
       <pre class="lines">
 
 
-24
 25
 26
 27
@@ -712,13 +713,12 @@ See the example <code>samples/excel.rb</code> in the <a href="https://github.com
 41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/squib/api/data.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'lib/squib/api/data.rb', line 25</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_xlsx'>xlsx</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='const'>Squib</span><span class='op'>::</span><span class='const'>SYSTEM_DEFAULTS</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='const'>Squib</span><span class='op'>::</span><span class='const'>InputHelpers</span><span class='period'>.</span><span class='id identifier rubyid_fileify'>fileify</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_s'>s</span>    <span class='op'>=</span> <span class='const'>Roo</span><span class='op'>::</span><span class='const'>Excelx</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:file</span><span class='rbracket'>]</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_default_sheet'>default_sheet</span> <span class='op'>=</span> <span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_sheets'>sheets</span><span class='lbracket'>[</span><span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:sheet</span><span class='rbracket'>]</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_input'>input</span> <span class='op'>=</span> <span class='const'>Args</span><span class='op'>::</span><span class='const'>InputFile</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>deck.xlsx</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_load!'>load!</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_s'>s</span> <span class='op'>=</span> <span class='const'>Roo</span><span class='op'>::</span><span class='const'>Excelx</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_input'>input</span><span class='period'>.</span><span class='id identifier rubyid_file'>file</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_default_sheet'>default_sheet</span> <span class='op'>=</span> <span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_sheets'>sheets</span><span class='lbracket'>[</span><span class='id identifier rubyid_input'>input</span><span class='period'>.</span><span class='id identifier rubyid_sheet'>sheet</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_first_column'>first_column</span><span class='period'>.</span><span class='id identifier rubyid_upto'>upto</span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_last_column'>last_column</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_col'>col</span><span class='op'>|</span>
     <span class='id identifier rubyid_header'>header</span> <span class='op'>=</span> <span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_cell'>cell</span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_first_row'>first_row</span><span class='comma'>,</span><span class='id identifier rubyid_col'>col</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
@@ -742,7 +742,7 @@ See the example <code>samples/excel.rb</code> in the <a href="https://github.com
 </div>
 
     <div id="footer">
-  Generated on Tue May 26 20:54:27 2015 by
+  Generated on Fri Sep 11 11:05:21 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.0.0).
 </div>

@@ -75,6 +75,12 @@
   <span class='id identifier rubyid_png'>png</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>shiny-purse.png</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>x:</span> <span class='int'>305</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>50</span><span class='comma'>,</span> <span class='label'>width:</span> <span class='int'>250</span><span class='comma'>,</span> <span class='label'>height:</span> <span class='int'>250</span>
   <span class='comment'>#...but PNGs will warn if it&#39;s an upscale
 </span>
+  <span class='comment'># Can be scaled using just width or height, if one of them is set to :scale
+</span>  <span class='id identifier rubyid_svg'>svg</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>spanner.svg</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>x:</span> <span class='int'>200</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>350</span><span class='comma'>,</span> <span class='label'>width:</span> <span class='int'>35</span><span class='comma'>,</span>     <span class='label'>height:</span> <span class='symbol'>:scale</span>
+  <span class='id identifier rubyid_svg'>svg</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>spanner.svg</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>x:</span> <span class='int'>200</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>390</span><span class='comma'>,</span> <span class='label'>width:</span> <span class='symbol'>:scale</span><span class='comma'>,</span> <span class='label'>height:</span> <span class='int'>35</span>
+  <span class='id identifier rubyid_png'>png</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>shiny-purse.png</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>x:</span> <span class='int'>240</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>350</span><span class='comma'>,</span> <span class='label'>width:</span> <span class='int'>35</span><span class='comma'>,</span>     <span class='label'>height:</span> <span class='symbol'>:scale</span>
+  <span class='id identifier rubyid_png'>png</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>shiny-purse.png</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>x:</span> <span class='int'>240</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>390</span><span class='comma'>,</span> <span class='label'>width:</span> <span class='symbol'>:scale</span><span class='comma'>,</span> <span class='label'>height:</span> <span class='int'>35</span>
+
   <span class='comment'># We can also limit our rendering to a single object, if the SVG ID is set
 </span>  <span class='id identifier rubyid_svg'>svg</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>spanner.svg</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>id:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>#backdrop</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>x:</span> <span class='int'>50</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>350</span><span class='comma'>,</span> <span class='label'>width:</span> <span class='int'>75</span><span class='comma'>,</span> <span class='label'>height:</span> <span class='int'>75</span>
   <span class='comment'># Squib prepends a #-sign if one is not specified
@@ -123,11 +129,19 @@
 </span>  <span class='id identifier rubyid_png'>png</span> <span class='label'>mask:</span> <span class='symbol'>:magenta</span><span class='comma'>,</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>shiny-purse.png</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
       <span class='label'>x:</span> <span class='int'>650</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>950</span>
 
+  <span class='comment'># Note that this method does nothing, even though it would normally fill up
+</span>  <span class='comment'># the card. force_id: true looks to the id field to be non-empty to render.
+</span>  <span class='comment'># This is useful if you have multiple different icons in one SVG file,
+</span>  <span class='comment'># but sometimes want to use none.
+</span>  <span class='comment'># e.g. id: [:attack, :defend, nil]
+</span>  <span class='id identifier rubyid_svg'>svg</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>spanner.svg</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>width:</span> <span class='symbol'>:deck</span><span class='comma'>,</span> <span class='label'>height:</span> <span class='symbol'>:deck</span><span class='comma'>,</span>
+      <span class='label'>force_id:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>id:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span> <span class='comment'># &lt;-- the important part
+</span>
   <span class='id identifier rubyid_save'>save</span> <span class='label'>prefix:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>load_images_</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>format:</span> <span class='symbol'>:png</span>
 <span class='kw'>end</span></pre></div></div>
 
     <div id="footer">
-  Generated on Tue May 26 20:54:27 2015 by
+  Generated on Fri Sep 11 11:05:21 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.0.0).
 </div>
