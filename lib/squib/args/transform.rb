@@ -8,7 +8,13 @@ module Squib
       include ArgLoader
 
       def self.parameters
-        { angle: 0 }
+        { angle: 0,
+          crop_x: 0,
+          crop_y: 0,
+          crop_corner_radius: 0,
+          crop_width: :native,
+          crop_height: :native,
+        }
       end
 
       def self.expanding_parameters
