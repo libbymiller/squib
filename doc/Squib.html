@@ -80,7 +80,7 @@
   
     <dt class="r1 last">Defined in:</dt>
     <dd class="r1 last">lib/squib/deck.rb<span class="defines">,<br />
-  lib/squib.rb,<br /> lib/squib/card.rb,<br /> lib/squib/conf.rb,<br /> lib/squib/version.rb,<br /> lib/squib/api/data.rb,<br /> lib/squib/api/text.rb,<br /> lib/squib/progress.rb,<br /> lib/squib/args/box.rb,<br /> lib/squib/api/save.rb,<br /> lib/squib/api/units.rb,<br /> lib/squib/constants.rb,<br /> lib/squib/args/draw.rb,<br /> lib/squib/api/image.rb,<br /> lib/squib/api/shapes.rb,<br /> lib/squib/args/paint.rb,<br /> lib/squib/args/sheet.rb,<br /> lib/squib/args/coords.rb,<br /> lib/squib/api/settings.rb,<br /> lib/squib/commands/new.rb,<br /> lib/squib/graphics/hand.rb,<br /> lib/squib/layout_parser.rb,<br /> lib/squib/graphics/text.rb,<br /> lib/squib/args/scale_box.rb,<br /> lib/squib/args/embed_key.rb,<br /> lib/squib/args/paragraph.rb,<br /> lib/squib/api/text_embed.rb,<br /> lib/squib/args/transform.rb,<br /> lib/squib/graphics/image.rb,<br /> lib/squib/api/background.rb,<br /> lib/squib/graphics/shapes.rb,<br /> lib/squib/args/card_range.rb,<br /> lib/squib/args/input_file.rb,<br /> lib/squib/args/save_batch.rb,<br /> lib/squib/args/arg_loader.rb,<br /> lib/squib/args/typographer.rb,<br /> lib/squib/args/svg_special.rb,<br /> lib/squib/graphics/save_doc.rb,<br /> lib/squib/args/hand_special.rb,<br /> lib/squib/graphics/showcase.rb,<br /> lib/squib/args/embed_adjust.rb,<br /> lib/squib/args/dir_validator.rb,<br /> lib/squib/graphics/background.rb,<br /> lib/squib/args/unit_conversion.rb,<br /> lib/squib/graphics/save_images.rb,<br /> lib/squib/args/color_validator.rb,<br /> lib/squib/args/showcase_special.rb,<br /> lib/squib/graphics/gradient_regex.rb,<br /> lib/squib/graphics/cairo_context_wrapper.rb</span>
+  lib/squib.rb,<br /> lib/squib/conf.rb,<br /> lib/squib/card.rb,<br /> lib/squib/version.rb,<br /> lib/squib/progress.rb,<br /> lib/squib/api/save.rb,<br /> lib/squib/api/data.rb,<br /> lib/squib/args/box.rb,<br /> lib/squib/api/text.rb,<br /> lib/squib/api/units.rb,<br /> lib/squib/constants.rb,<br /> lib/squib/args/draw.rb,<br /> lib/squib/api/image.rb,<br /> lib/squib/args/paint.rb,<br /> lib/squib/api/shapes.rb,<br /> lib/squib/args/sheet.rb,<br /> lib/squib/args/coords.rb,<br /> lib/squib/args/import.rb,<br /> lib/squib/commands/new.rb,<br /> lib/squib/api/settings.rb,<br /> lib/squib/layout_parser.rb,<br /> lib/squib/graphics/hand.rb,<br /> lib/squib/graphics/text.rb,<br /> lib/squib/args/scale_box.rb,<br /> lib/squib/graphics/image.rb,<br /> lib/squib/args/paragraph.rb,<br /> lib/squib/api/text_embed.rb,<br /> lib/squib/args/transform.rb,<br /> lib/squib/args/embed_key.rb,<br /> lib/squib/api/background.rb,<br /> lib/squib/args/card_range.rb,<br /> lib/squib/graphics/shapes.rb,<br /> lib/squib/args/save_batch.rb,<br /> lib/squib/args/arg_loader.rb,<br /> lib/squib/args/input_file.rb,<br /> lib/squib/args/svg_special.rb,<br /> lib/squib/args/typographer.rb,<br /> lib/squib/args/embed_adjust.rb,<br /> lib/squib/graphics/showcase.rb,<br /> lib/squib/args/hand_special.rb,<br /> lib/squib/graphics/save_doc.rb,<br /> lib/squib/args/dir_validator.rb,<br /> lib/squib/graphics/background.rb,<br /> lib/squib/args/color_validator.rb,<br /> lib/squib/graphics/save_images.rb,<br /> lib/squib/args/unit_conversion.rb,<br /> lib/squib/args/showcase_special.rb,<br /> lib/squib/graphics/gradient_regex.rb,<br /> lib/squib/graphics/cairo_context_wrapper.rb</span>
 </dd>
   
 </dl>
@@ -130,7 +130,7 @@ e.g. v0.0.5a is on its way to becoming v0.0.5</p>
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>0.7.0</span><span class='tstring_end'>&#39;</span></span></pre></dd>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>0.8.0</span><span class='tstring_end'>&#39;</span></span></pre></dd>
       
         <dt id="SYSTEM_DEFAULTS-constant" class="">SYSTEM_DEFAULTS =
           <div class="docstring">
@@ -309,6 +309,28 @@ value: the user-facing API key (e.g. radius: &#39;1in&#39;)</p>
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#explode_quantities-class_method" title="explode_quantities (class method)">+ (Object) <strong>explode_quantities</strong>(data, qty) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#logger-class_method" title="logger (class method)">+ (Logger) <strong>logger</strong> </a>
     
 
@@ -437,6 +459,36 @@ data = csv file: &#39;data.csv&#39;
           
         </li>
       
+        <li>
+          <span class="name">strip</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>true</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>When true, strips leading and trailing whitespace on values and headers</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">explode</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>&#39;qty&#39;</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Quantity explosion will be applied to the column this name. See README for example.</p>
+</div>
+          
+        </li>
+      
     </ul>
   
 
@@ -464,33 +516,106 @@ data = csv file: &#39;data.csv&#39;
       <pre class="lines">
 
 
-63
-64
-65
-66
-67
-68
-69
-70
-71
 72
 73
-74</pre>
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/squib/api/data.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'lib/squib/api/data.rb', line 72</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_csv'>csv</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_file'>file</span> <span class='op'>=</span> <span class='const'>Args</span><span class='op'>::</span><span class='const'>InputFile</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>deck.csv</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_load!'>load!</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_file'>file</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
-  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='const'>Squib</span><span class='op'>::</span><span class='const'>SYSTEM_DEFAULTS</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
-  <span class='comment'># opts = Squib::InputHelpers.fileify(opts)
-</span>  <span class='id identifier rubyid_table'>table</span> <span class='op'>=</span> <span class='const'>CSV</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span><span class='lparen'>(</span><span class='id identifier rubyid_file'>file</span><span class='comma'>,</span> <span class='label'>headers:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>converters:</span> <span class='symbol'>:numeric</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_import'>import</span> <span class='op'>=</span> <span class='const'>Args</span><span class='op'>::</span><span class='const'>Import</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='period'>.</span><span class='id identifier rubyid_load!'>load!</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_table'>table</span> <span class='op'>=</span> <span class='const'>CSV</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span><span class='lparen'>(</span><span class='id identifier rubyid_file'>file</span><span class='comma'>,</span> <span class='label'>headers:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>converters:</span> <span class='symbol'>:numeric</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_check_duplicate_csv_headers'>check_duplicate_csv_headers</span><span class='lparen'>(</span><span class='id identifier rubyid_table'>table</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_hash'>hash</span> <span class='op'>=</span> <span class='const'>Hash</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
   <span class='id identifier rubyid_table'>table</span><span class='period'>.</span><span class='id identifier rubyid_headers'>headers</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_header'>header</span><span class='op'>|</span>
-    <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='id identifier rubyid_header'>header</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='id identifier rubyid_table'>table</span><span class='lbracket'>[</span><span class='id identifier rubyid_header'>header</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_new_header'>new_header</span> <span class='op'>=</span> <span class='id identifier rubyid_header'>header</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+    <span class='id identifier rubyid_new_header'>new_header</span> <span class='op'>=</span> <span class='id identifier rubyid_new_header'>new_header</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span> <span class='kw'>if</span> <span class='id identifier rubyid_import'>import</span><span class='period'>.</span><span class='id identifier rubyid_strip?'>strip?</span>
+    <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='id identifier rubyid_new_header'>new_header</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='id identifier rubyid_table'>table</span><span class='lbracket'>[</span><span class='id identifier rubyid_header'>header</span><span class='rbracket'>]</span>
   <span class='kw'>end</span>
-  <span class='kw'>return</span> <span class='id identifier rubyid_hash'>hash</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_import'>import</span><span class='period'>.</span><span class='id identifier rubyid_strip?'>strip?</span>
+    <span class='id identifier rubyid_new_hash'>new_hash</span> <span class='op'>=</span> <span class='const'>Hash</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+    <span class='id identifier rubyid_hash'>hash</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_header'>header</span><span class='comma'>,</span> <span class='id identifier rubyid_col'>col</span><span class='op'>|</span>
+      <span class='id identifier rubyid_new_hash'>new_hash</span><span class='lbracket'>[</span><span class='id identifier rubyid_header'>header</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_col'>col</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_str'>str</span><span class='op'>|</span> <span class='id identifier rubyid_str'>str</span> <span class='op'>=</span> <span class='id identifier rubyid_str'>str</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span> <span class='kw'>if</span> <span class='id identifier rubyid_str'>str</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:strip</span><span class='rparen'>)</span><span class='semicolon'>;</span> <span class='id identifier rubyid_str'>str</span> <span class='rbrace'>}</span>
+    <span class='kw'>end</span>
+    <span class='id identifier rubyid_hash'>hash</span> <span class='op'>=</span> <span class='id identifier rubyid_new_hash'>new_hash</span>
+  <span class='kw'>end</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_explode_quantities'>explode_quantities</span><span class='lparen'>(</span><span class='id identifier rubyid_hash'>hash</span><span class='comma'>,</span> <span class='id identifier rubyid_import'>import</span><span class='period'>.</span><span class='id identifier rubyid_explode'>explode</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="explode_quantities-class_method">
+  
+    + (<tt>Object</tt>) <strong>explode_quantities</strong>(data, qty) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/squib/api/data.rb', line 104</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_explode_quantities'>explode_quantities</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='comma'>,</span> <span class='id identifier rubyid_qty'>qty</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_data'>data</span> <span class='kw'>unless</span> <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_key?'>key?</span> <span class='id identifier rubyid_qty'>qty</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span>
+  <span class='id identifier rubyid_qtys'>qtys</span> <span class='op'>=</span> <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='id identifier rubyid_qty'>qty</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_new_data'>new_data</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_col'>col</span><span class='comma'>,</span> <span class='id identifier rubyid_arr'>arr</span><span class='op'>|</span>
+    <span class='id identifier rubyid_new_data'>new_data</span><span class='lbracket'>[</span><span class='id identifier rubyid_col'>col</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_qtys'>qtys</span><span class='period'>.</span><span class='id identifier rubyid_each_with_index'>each_with_index</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_qty'>qty</span><span class='comma'>,</span> <span class='id identifier rubyid_index'>index</span><span class='op'>|</span>
+      <span class='id identifier rubyid_qty'>qty</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_new_data'>new_data</span><span class='lbracket'>[</span><span class='id identifier rubyid_col'>col</span><span class='rbracket'>]</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_arr'>arr</span><span class='lbracket'>[</span><span class='id identifier rubyid_index'>index</span><span class='rbracket'>]</span> <span class='rbrace'>}</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_new_data'>new_data</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -603,13 +728,13 @@ See the example <code>samples/excel.rb</code> in the <a href="https://github.com
     <p class="tag_title">Examples:</p>
     
       
-      <pre class="example code"><code><span class='comment'># Excel file looks like this:
-</span><span class='comment'># | h1 | h2 |
-</span><span class='comment'># ------------
-</span><span class='comment'># | 1  | 2  |
-</span><span class='comment'># | 3  | 4  |
-</span><span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='id identifier rubyid_xlsx'>xlsx</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>data.xlsx</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>sheet:</span> <span class='int'>0</span>
-<span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>h1</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='int'>1</span><span class='comma'>,</span><span class='int'>3</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>h2</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='int'>2</span><span class='comma'>,</span><span class='int'>4</span><span class='rbracket'>]</span><span class='rbrace'>}</span></code></pre>
+      <pre class="example code"><code># Excel file looks like this:
+# | h1 | h2 |
+# ------------
+# | 1  | 2  |
+# | 3  | 4  |
+data = xlsx file: &#39;data.xlsx&#39;, sheet: 0
+=&gt; {&#39;h1&#39; =&gt; [1,3], &#39;h2&#39; =&gt; [2,4]}</code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -653,6 +778,21 @@ See the example <code>samples/excel.rb</code> in the <a href="https://github.com
         </li>
       
         <li>
+          <span class="name">strip</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>true</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>When true, strips leading and trailing whitespace on values and headers</p>
+</div>
+          
+        </li>
+      
+        <li>
           <span class="name">sheet</span>
           <span class="type">(<tt>Integer</tt>)</span>
           <span class="default">
@@ -663,6 +803,21 @@ See the example <code>samples/excel.rb</code> in the <a href="https://github.com
           </span>
           
             &mdash; <div class='inline'><p>The zero-based index of the sheet from which to read.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">explode</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>&#39;qty&#39;</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Quantity explosion will be applied to the column this name. See README for example.</p>
 </div>
           
         </li>
@@ -694,9 +849,6 @@ See the example <code>samples/excel.rb</code> in the <a href="https://github.com
       <pre class="lines">
 
 
-25
-26
-27
 28
 29
 30
@@ -710,27 +862,38 @@ See the example <code>samples/excel.rb</code> in the <a href="https://github.com
 38
 39
 40
-41</pre>
+41
+42
+43
+44
+45
+46
+47
+48</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/squib/api/data.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'lib/squib/api/data.rb', line 28</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_xlsx'>xlsx</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_input'>input</span> <span class='op'>=</span> <span class='const'>Args</span><span class='op'>::</span><span class='const'>InputFile</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>deck.xlsx</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_load!'>load!</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_import'>import</span> <span class='op'>=</span> <span class='const'>Args</span><span class='op'>::</span><span class='const'>Import</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='period'>.</span><span class='id identifier rubyid_load!'>load!</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_s'>s</span> <span class='op'>=</span> <span class='const'>Roo</span><span class='op'>::</span><span class='const'>Excelx</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_input'>input</span><span class='period'>.</span><span class='id identifier rubyid_file'>file</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_default_sheet'>default_sheet</span> <span class='op'>=</span> <span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_sheets'>sheets</span><span class='lbracket'>[</span><span class='id identifier rubyid_input'>input</span><span class='period'>.</span><span class='id identifier rubyid_sheet'>sheet</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_first_column'>first_column</span><span class='period'>.</span><span class='id identifier rubyid_upto'>upto</span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_last_column'>last_column</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_col'>col</span><span class='op'>|</span>
     <span class='id identifier rubyid_header'>header</span> <span class='op'>=</span> <span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_cell'>cell</span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_first_row'>first_row</span><span class='comma'>,</span><span class='id identifier rubyid_col'>col</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+    <span class='id identifier rubyid_header'>header</span><span class='period'>.</span><span class='id identifier rubyid_strip!'>strip!</span> <span class='kw'>if</span> <span class='id identifier rubyid_import'>import</span><span class='period'>.</span><span class='id identifier rubyid_strip?'>strip?</span>
     <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='id identifier rubyid_header'>header</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
     <span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_first_row'>first_row</span> <span class='op'>+</span> <span class='int'>1</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_upto'>upto</span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_last_row'>last_row</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_row'>row</span><span class='op'>|</span>
       <span class='id identifier rubyid_cell'>cell</span> <span class='op'>=</span> <span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_cell'>cell</span><span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span><span class='comma'>,</span><span class='id identifier rubyid_col'>col</span><span class='rparen'>)</span>
       <span class='comment'># Roo hack for avoiding unnecessary .0&#39;s on whole integers (https://github.com/roo-rb/roo/issues/139)
 </span>      <span class='id identifier rubyid_cell'>cell</span> <span class='op'>=</span> <span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_excelx_value'>excelx_value</span><span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span><span class='comma'>,</span><span class='id identifier rubyid_col'>col</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_excelx_type'>excelx_type</span><span class='lparen'>(</span><span class='id identifier rubyid_row'>row</span><span class='comma'>,</span><span class='id identifier rubyid_col'>col</span><span class='rparen'>)</span> <span class='op'>==</span> <span class='lbracket'>[</span><span class='symbol'>:numeric_or_formula</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>General</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+      <span class='id identifier rubyid_cell'>cell</span><span class='period'>.</span><span class='id identifier rubyid_strip!'>strip!</span> <span class='kw'>if</span> <span class='id identifier rubyid_cell'>cell</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:strip</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_import'>import</span><span class='period'>.</span><span class='id identifier rubyid_strip?'>strip?</span>
+      <span class='id identifier rubyid_cell'>cell</span> <span class='op'>=</span> <span class='kw'>yield</span><span class='lparen'>(</span><span class='id identifier rubyid_header'>header</span><span class='comma'>,</span> <span class='id identifier rubyid_cell'>cell</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
       <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='id identifier rubyid_header'>header</span><span class='rbracket'>]</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_cell'>cell</span>
     <span class='kw'>end</span><span class='comment'>#row
 </span>  <span class='kw'>end</span><span class='comment'>#col
-</span>  <span class='id identifier rubyid_data'>data</span>
+</span>  <span class='id identifier rubyid_explode_quantities'>explode_quantities</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='comma'>,</span> <span class='id identifier rubyid_import'>import</span><span class='period'>.</span><span class='id identifier rubyid_explode'>explode</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -742,7 +905,7 @@ See the example <code>samples/excel.rb</code> in the <a href="https://github.com
 </div>
 
     <div id="footer">
-  Generated on Fri Sep 11 11:05:21 2015 by
+  Generated on Mon Oct 26 14:51:51 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.0.0).
 </div>
