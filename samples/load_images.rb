@@ -1,11 +1,59 @@
 require 'squib'
 
-Squib::Deck.new(width: 825, height: 1125, cards: 1) do
-  background color: '#0b7c8e'
-  rect x: 38, y: 38, width: 750, height: 1050, x_radius: 38, y_radius: 38
+# TODO Get these helper methods into other helper methods later, maybe even into Squib proper
+def sample(str)
+  @sample_x ||= 100
+  @sample_y ||= 100
+  rect x: 510, y: @sample_y - 40, width: 600,
+       height: 180, fill_color: '#FFD655', stroke_color: 'black', radius: 15
+  text str: str, x: 510, y: @sample_y - 40,
+       width: 490, height: 180,
+       valign: 'middle', align: 'center',
+       font: 'Open Sans,Sans 24'
+  yield @sample_x, @sample_y
+  @sample_y += 200
+end
 
-  png file: 'shiny-purse.png', x: 620, y: 75 # no scaling is done by default
-  svg file: 'spanner.svg', x: 620, y: 218
+def draw_graph_paper(width, height)
+  background color: 'white'
+  grid width: 50,  height: 50,  stroke_color: '#0066FF', stroke_width: 1.5
+  grid width: 200, height: 200, stroke_color: '#0066FF', stroke_width: 3, x: 50, y: 50
+  (50..height).step(200) do |y|
+    text str: "y=#{y}", x: 3, y: y - 18, font: 'Open Sans, Sans 10'
+  end
+end
+
+Squib::Deck.new(width: 1000, height: 2000) do
+  draw_graph_paper width, height
+
+  sample 'This a SVG - no scaling is done by default.' do |x, y|
+    png file: 'shiny-purse.png', x: x, y: y
+  end
+
+  sample 'SVGs can be loaded from a file.' do |x,y|
+    svg file: 'spanner.svg', x: x, y: y
+  end
+
+  sample 'SVGs can also come from straight xml. They can also be scaled to any size.' do |x,y|
+    svg data: File.read('robot-golem.svg'),
+        width: 100, height: 100,
+        x: x, y: y
+  end
+
+  sample 'PNGs can be scaled, but they will emit an antialias warning.' do |x,y|
+    png file: 'shiny-purse.png', x: x, y: y, width: 150, height: 150
+  end
+
+  save_png prefix: 'load_image_sheet_'
+end
+
+
+Squib::Deck.new(width: 825, height: 1125, cards: 1) do
+  # background color: '#0b7c8e'
+  # rect x: 38, y: 38, width: 750, height: 1050, x_radius: 38, y_radius: 38
+
+  # png file: 'shiny-purse.png', x: 620, y: 75 # no scaling is done by default
+  # svg file: 'spanner.svg', x: 620, y: 218
 
   # Can be scaled if width and height are set
   svg file: 'spanner.svg', x: 50, y: 50, width: 250, height: 250
