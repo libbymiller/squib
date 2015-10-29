@@ -1,7 +1,7 @@
 language: ruby
 sudo: false # taking advantage of container-based infrastructure
 cache: bundler # maybe someday they'll add support for us freeloaders...
-os:
+os: # Does MacOS X work?
   - linux
   - osx
 rvm:
