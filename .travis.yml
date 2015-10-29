@@ -1,11 +1,10 @@
 language: ruby
 # sudo: false # taking advantage of container-based infrastructure
 # cache: bundler # maybe someday they'll add support for us freeloaders...
-before_install:
-  - rvm install 2.2
-  - brew update
+# before_install:
+#   - rvm install 2.2
+#   - brew update
 rvm:
-  - 2.0
   - 2.1
   - 2.2
 os: # Does MacOS X work?
