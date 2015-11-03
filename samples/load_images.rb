@@ -4,12 +4,12 @@ require 'squib'
 def sample(str)
   @sample_x ||= 100
   @sample_y ||= 100
-  rect x: 510, y: @sample_y - 40, width: 600,
+  rect x: 460, y: @sample_y - 40, width: 600,
        height: 180, fill_color: '#FFD655', stroke_color: 'black', radius: 15
-  text str: str, x: 510, y: @sample_y - 40,
-       width: 490, height: 180,
+  text str: str, x: 460, y: @sample_y - 40,
+       width: 540, height: 180,
        valign: 'middle', align: 'center',
-       font: 'Open Sans,Sans 24'
+       font: 'Times New Roman,Serif 24'
   yield @sample_x, @sample_y
   @sample_y += 200
 end
@@ -23,125 +23,100 @@ def draw_graph_paper(width, height)
   end
 end
 
-Squib::Deck.new(width: 1000, height: 2000) do
+Squib::Deck.new(width: 1000, height: 3000) do
   draw_graph_paper width, height
 
-  sample 'This a SVG - no scaling is done by default.' do |x, y|
+  sample "This a PNG.\nNo scaling is done by default." do |x, y|
     png file: 'shiny-purse.png', x: x, y: y
   end
 
-  sample 'SVGs can be loaded from a file.' do |x,y|
-    svg file: 'spanner.svg', x: x, y: y
-  end
-
-  sample 'SVGs can also come from straight xml. They can also be scaled to any size.' do |x,y|
-    svg data: File.read('robot-golem.svg'),
-        width: 100, height: 100,
-        x: x, y: y
-  end
-
-  sample 'PNGs can be scaled, but they will emit an antialias warning.' do |x,y|
+  sample 'PNGs can be upscaled, but they will emit an antialias warning (unless you turn it off in the config.yml)' do |x,y|
     png file: 'shiny-purse.png', x: x, y: y, width: 150, height: 150
   end
 
+  sample 'SVGs can be loaded from a file (left) or from straight XML (right). They can also be scaled to any size.' do |x,y|
+    svg file: 'robot-golem.svg', x: x, y: y, width: 100, height: 100
+    svg data: File.read('robot-golem.svg'), width: 100, height: 100,
+        x: x + 200, y: y
+  end
+
+  sample 'PNG and SVG can be auto-scaled by one side and setting the other to :scale' do |x,y|
+    svg file: 'spanner.svg', x: x,      y: y, width: 50,     height: :scale
+    svg file: 'spanner.svg', x: x + 50, y: y, width: :scale, height: 50
+
+    png file: 'shiny-purse.png', x: x,      y: y + 50, width: 50,     height: :scale
+    png file: 'shiny-purse.png', x: x + 50, y: y + 50, width: :scale, height: 50
+  end
+
+  sample 'PNGs can be cropped. To work from sprite sheets, you can set crop coordinates to PNG images. Rounded corners supported too.' do |x,y|
+    png file: 'sprites.png', x: x - 50, y: y - 50     # entire sprite sheet
+    rect x: x - 50, y: y - 50, width: 65, height: 65, # highlight the crop
+         radius: 10, dash: '3 3', stroke_color: 'red', stroke_width: 3
+    text str: '➜', font: 'Sans Bold 36', x: x + 90, y: y - 50
+    png file: 'sprites.png', x: x + 150, y: y - 50,        # just the robot golem image
+        crop_x: 0, crop_y: 0, crop_corner_radius: 10,
+        crop_width: 64, crop_height: 64
+
+    png file: 'sprites.png', x: x - 50, y: y + 50     # entire sprite sheet again
+    rect x: x + 14, y: y + 50, width: 65, height: 65, # highlight the crop
+         radius: 25, dash: '3 3', stroke_color: 'red', stroke_width: 3
+    text str: '➜', font: 'Sans Bold 36', x: x + 90, y: y + 50
+    png file: 'sprites.png', x: x + 170, y: y + 50, # just the drakkar ship image, rotated
+        crop_x: 64, crop_y: 0, crop_corner_x_radius: 25, crop_corner_y_radius: 25,
+        crop_width: 64, crop_height: 64, angle: Math::PI / 6
+  end
+
+  sample 'SVGs can be cropped too.' do |x,y|
+    svg file: 'robot-golem.svg', x: x, y: y, width: 100, height: 100,
+        crop_x: 40, crop_y: 0, crop_width: 50, crop_height: 50
+  end
+
+  sample 'Images can be flipped about their center.' do |x,y|
+    png file: 'shiny-purse.png', x: x, y: y, flip_vertical: true, flip_horizontal: true
+    svg file: 'robot-golem.svg', x: x + 200, y: y, width: 100, height: 100,
+        flip_horizontal: true
+  end
+
+  sample 'SVG can be limited to rendering to a single object if the SVG ID is set. If you look at this SVG file, the black backdrop has ID #backdrop.' do |x,y|
+    svg file: 'spanner.svg', id: 'backdrop', x: x, y: y, width: 100, height: 100
+  end
+
+  sample "The SVG force_id option allows use of an ID only when specified, and render nothing if empty. Useful for multiple icons in one SVG file.\nThis should show nothing." do |x,y|
+    svg file: 'spanner.svg', x: x, y: y,
+        force_id: true, id: '' # <-- the important parts
+  end
+
+  sample 'NOTE! If you render a single object in an SVG, its placement is still relative to the SVG document.' do |x,y|
+    svg file: 'offset.svg', x: x, y: y
+    rect x: x, y: y, width: 100, height: 100, dash: '3 1', stroke_color: 'red', stroke_width: 3
+
+    svg file: 'offset.svg', id: 'thing',  x: x + 200, y: y, width: 100, height: 100
+    rect x: x + 200, y: y, width: 100, height: 100, dash: '3 1', stroke_color: 'red', stroke_width: 3
+  end
+
+
+  sample 'PNGs can be blended onto each other with 15 different blending operators. Alpha transparency supported too. See http://cairographics.org/operators' do |x,y|
+    png file: 'ball.png', x: x,      y: y
+    png file: 'grit.png', x: x + 20, y: y + 20, blend: :color_burn, alpha: 0.75
+  end
+
+  sample 'Rotation is around the upper-left corner of the image. Unit is radians.' do |x,y|
+    rect x: x, y: y, width: 100, height: 100, stroke_width: 3, dash: '3 3', stroke_color: :red
+    png  x: x,  y: y, width: 100, height: 100, angle: Math::PI / 4, file: 'shiny-purse.png'
+
+    rect x: x + 250, y: y, width: 100, height: 100, stroke_width: 3, dash: '3 3', stroke_color: :red
+    svg  x: x + 250, y: y, width: 100, height: 100, file: 'robot-golem.svg',
+        angle: Math::PI / 2 - 0.2
+  end
+
+  sample 'SVGs and PNGs can be used as masks for colors instead of being directly rendered.' do |x,y|
+    svg mask: '#00ff00', file: 'glass-heart.svg', x: x - 50, y: y - 50, width: 200, height: 200
+    svg mask: '(0,0)(0,500) #ccc@0.0 #333@1.0', file: 'glass-heart.svg', x: x + 150, y: y - 50, width: 200, height: 200
+  end
+
+  sample 'PNG masks are based on the alpha channel, so this is just a magenta square with rounded corners.' do |x,y|
+    png file: 'shiny-purse.png', mask: :magenta, x: x, y: y
+  end
+
   save_png prefix: 'load_image_sheet_'
-end
-
-
-Squib::Deck.new(width: 825, height: 1125, cards: 1) do
-  # background color: '#0b7c8e'
-  # rect x: 38, y: 38, width: 750, height: 1050, x_radius: 38, y_radius: 38
-
-  # png file: 'shiny-purse.png', x: 620, y: 75 # no scaling is done by default
-  # svg file: 'spanner.svg', x: 620, y: 218
-
-  # Can be scaled if width and height are set
-  svg file: 'spanner.svg', x: 50, y: 50, width: 250, height: 250
-  png file: 'shiny-purse.png', x: 305, y: 50, width: 250, height: 250
-  #...but PNGs will warn if it's an upscale
-
-  # Can be scaled using just width or height, if one of them is set to :scale
-  svg file: 'spanner.svg', x: 200, y: 350, width: 35,     height: :scale
-  svg file: 'spanner.svg', x: 200, y: 390, width: :scale, height: 35
-  png file: 'shiny-purse.png', x: 240, y: 350, width: 35,     height: :scale
-  png file: 'shiny-purse.png', x: 240, y: 390, width: :scale, height: 35
-
-  # You can also crop the loaded images, so you can work from a sprite sheet
-  png file: 'sprites.png', x: 300, y: 350  # entire sprite sheet
-  png file: 'sprites.png', x: 300, y: 425, # just the robot golem image
-      crop_x: 0, crop_y: 0, crop_corner_radius: 10,
-      crop_width: 64, crop_height: 64
-  png file: 'sprites.png', x: 400, y: 425, # just the drakkar ship image
-      crop_x: 64, crop_y: 0, crop_corner_x_radius: 25, crop_corner_y_radius: 25,
-      crop_width: 64, crop_height: 64
-  png file: 'sprites.png', x: 500, y: 415, # just the drakkar ship image, rotated
-      crop_x: 64, crop_y: 0, crop_corner_x_radius: 25, crop_corner_y_radius: 25,
-      crop_width: 64, crop_height: 64, angle: Math::PI / 6
-
-  # Cropping also works on SVGs too
-  svg file: 'spanner.svg', x: 300, y: 500, width: 64, height: 64,
-      crop_x: 32, crop_y: 32, crop_width: 32, crop_height:32
-
-  # We can flip our images too
-  png file: 'sprites.png', x: 300, y: 535, flip_vertical: true, flip_horizontal: true
-  svg file: 'spanner.svg', x: 300, y: 615, width: 64, height: 64,
-      flip_vertical: true, flip_horizontal: true
-
-  # We can also limit our rendering to a single object, if the SVG ID is set
-  svg file: 'spanner.svg', id: '#backdrop', x: 50, y: 350, width: 75, height: 75
-  # Squib prepends a #-sign if one is not specified
-  svg file: 'spanner.svg', id: 'backdrop', x: 50, y: 450, width: 125, height: 125
-
-  # We can also load SVGs as a string of XML
-  svg data: File.read('spanner.svg'), x: 50, y: 600, width: 75, height: 75
-
-  # The svg data field works nicely with modifying the SVG XML on-the-fly.
-  # To run this one, do `gem install game_icons` and uncomment the following
-  #
-  # require 'game_icons'
-  # svg data: GameIcons.get('angler-fish').recolor(fg: '#ccc', bg: '#333').string,
-  #     x: 150, y: 600, width: 75, height: 75
-  #
-  # More examples at https://github.com/andymeneely/game_icons
-  # (or `gem install game_icons`) to get & manipulate art from game-icons.net
-  # Nokogiri (already included in Squib) is also great for XML manipulation.
-
-  # WARNING! If you choose to use the SVG ID, the x-y coordinates are still
-  # relative to the SVG page. See this example in an SVG editor
-  svg file: 'offset.svg', id: 'thing',  x: 0, y: 0, width: 600, height: 600
-
-  # Over 15 different blending operators are supported.
-  # See http://cairographics.org/operators
-  # Alpha transparency too
-  png file: 'ball.png', x: 50, y: 700
-  png file: 'grit.png', x: 70, y: 750, blend: :color_burn, alpha: 0.75
-
-  # Images can be rotated around their upper-left corner
-  png file: 'shiny-purse.png', x: 300, y: 700, angle: 0.0 # default (no rotate)
-  png file: 'shiny-purse.png', x: 300, y: 800, angle: Math::PI / 4
-  svg file: 'spanner.svg',     x: 300, y: 900, angle: Math::PI / 2 - 0.1
-
-  # Images can also be used as masks instead of being directly painted.
-  # This is particularly useful for switching directly over to black-and-white for printing
-  # Or, if you want the same image to be used but with different colors/gradients
-  svg mask: '#00ff00',
-      file: 'glass-heart.svg',
-      x: 500, y: 600, width: 200, height: 200
-  svg mask: '(0,0)(0,500) #ccc@0.0 #333@1.0',
-      file: 'glass-heart.svg',
-      x: 500, y: 800, width: 200, height: 200
-
-  # Masks are based on the alpha channel, so this is just a magenta square
-  png mask: :magenta, file: 'shiny-purse.png',
-      x: 650, y: 950
-
-  # Note that this method does nothing, even though it would normally fill up
-  # the card. force_id: true looks to the id field to be non-empty to render.
-  # This is useful if you have multiple different icons in one SVG file,
-  # but sometimes want to use none.
-  # e.g. id: [:attack, :defend, nil]
-  svg file: 'spanner.svg', width: :deck, height: :deck,
-      force_id: true, id: '' # <-- the important part
-
-  save prefix: 'load_images_', format: :png
 end
