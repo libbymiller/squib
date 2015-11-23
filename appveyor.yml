@@ -4,19 +4,25 @@ skip_tags: true
 
 environment:
   matrix:
+    - ruby_version: "200"
+    - ruby_version: "200-x64"
     - ruby_version: "21"
     - ruby_version: "21-x64"
-    - ruby_version: "20"
-    - ruby_version: "20-x64"
     - ruby_version: "22"
     - ruby_version: "22-x64"
 
 install:
   - SET PATH=C:\Ruby%ruby_version%\bin;%PATH%
-  - gem install bundler --no-document -v 1.10.5
-  - bundle install --retry=3
+  - ruby --version
+  - gem --version
+  - gem install bundler --quiet --no-ri --no-rdoc
+  - bundler --version
+  - bundle install
 
 test_script:
-  - bundle exec rake
+  - rake
+
+artifacts:
+  - path: pkg\*.gem
 
 build: off
