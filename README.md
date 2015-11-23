@@ -43,7 +43,7 @@ And then execute:
     $ bundle
 
 Note: Squib has some native dependencies, such as [Cairo](https://github.com/rcairo/rcairo), [Pango](http://ruby-gnome2.sourceforge.jp/hiki.cgi?Pango%3A%3ALayout), and [Nokogiri](http://nokogiri.org/), which may require compiling C code to install. This is usually not painful at all, and is automated through Bundler/RubyGems, but can cause headaches on some setups.
-  * Windows: I recommend using the *non-64 bit* RubyInstaller at http://rubyinstaller.org. Some installations will also need DevKit. Currently, Ruby 2.2 on Windows conflicts with one of Squib's dependencies called Nokogiri (read the WTF-y issue here: https://github.com/sparklemotion/nokogiri/issues/1256), so I recommend 2.1 or 2.0 for Windows users.
+  * Windows: I recommend using the *non-64 bit* RubyInstaller at http://rubyinstaller.org. Some installations will also need DevKit. Currently, Ruby 2.2 on Windows conflicts with one of Squib's dependencies called Nokogiri (read the WTF-y issue here: https://github.com/sparklemotion/nokogiri/issues/1256) UPDATE: their pre-releases have fixed this exact issue - just install nokogiri-1.6.7.rc3-x64-mingw32 (or higher). Or, as a last resort, use 2.1 or 2.0 for Windows users.
   * Mac: I recommend using [rvm](https://rvm.io). Some users have reported that Ruby 2.1 will not work with Mac OSX 10.10.4 (#88) - Ruby 2.0 and 2.2 are confirmed to work however (this is an rcairo issue, not a Squib issue).
   * Cywgin is not supported, but could theoretically work with extra installation steps. See [this thread](http://boardgamegeek.com/article/18508113#18508113). Contributions in this area are welcome.
   * Linux. No known installation issues. Happy installing!
@@ -463,6 +463,8 @@ Squib supports various configuration properties that can be specified in an exte
 * `antialias` (`fast, good, best, none, gray, subpixel`, default: best). Set the algorithm that Cairo will use for antialiasing. Using our benchmarks on large decks, `best` is only ~10% slower anyway. For more info see the [Cairo docs](http://www.cairographics.org/manual/cairo-cairo-t.html#cairo-antialias-t).
 * `backend` (`svg` or `memory`, default: `memory`). Defines how Cairo will store the operations. Memory is recommended for higher quality rendering.
 * `prefix` (default: `card_`). When using an SVG backend, cards are auto-saved with this prefix and `"%02d"` numbering format.
+* `warn_ellipsize` (default: true). Warn when text is ellipsized
+* `warn_png_scale` (default: true). Warn when a PNG file is upscaled
 
 For debugging/sanity purposes, if you want to make sure your configuration options are parsed correclty, the above options are also available as methods within Squib::Deck, for example:
 
@@ -483,6 +485,10 @@ Squib supports importing data from `xlsx` files and `csv` files. These methods a
 {include:file:samples/excel.rb}
 
 Of course, you can always import your game data other ways using just Ruby. There's nothing special about Squib's methods other than their convenience.
+
+###Quantity Explosion
+
+If you want more than one copy of a card, then have a column called `Qty` and fill it with counts. Squib's `xlsx` and `csv` methods will automatically expand those rows according to those counts. You can also customize that "Qty" to anything you like by setting the `explode` option (e.g. `explode: 'Quantity'`). See the `excel.rb` and the `csv_import.rb` samples found [here](https://github.com/andymeneely/squib/tree/master/samples/) for an example.
 
 ## Making Squib Verbose
 
@@ -597,11 +603,22 @@ There are lots of people using Squib already. If you've gone through the [sample
 * Our [thread on BoardGameGeek](http://boardgamegeek.com/thread/1293453) is quite active and informal (if a bit unstructured).
 * [StackOverflow](http://stackoverflow.com/questions/ask?tags=ruby squib) with the tag "ruby" and "squib" will get you answers quickly and a great way to document questions for future Squibbers.
 
+If you email me directly I'll probably ask you to post your question publicly so we can document answers for future Googling Squibbers.
+
 Please use GitHub issues for bugs and feature requests.
+
+## Give Help
+
+Let's help each other out! Even if you're relatively new, there's probably some question out there that you can help answer. Here's how to help:
+
+* Subscribe to our thread on BoardGameGeek (see above for link)
+* Subscribe to alerts from Stackoverflow for the tags "squib" and "ruby"
+* Post snippets of your code using GitHub gists
+* Write a how-to tutorial and post it on [our wiki](https://github.com/andymeneely/squib/wiki)
 
 ## Testing Pre-Builds
 
-If you want to test new features as I develop them, you can always point your Gemfile to the repository. Your Gemfile specification looks like this:
+Testers needed!! If you want to test new features as I develop them, or make sure I didn't break your code, you can always point your Gemfile to the repository and follow what I'm doing there. Your Gemfile specification looks like this:
 
 ```ruby
 gem 'squib', git: 'git://github.com/andymeneely/squib', branch: 'dev'

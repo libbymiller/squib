@@ -1,6 +1,7 @@
-require 'squib'
 require 'forwardable'
+require 'squib'
 require 'squib/args/typographer'
+require 'yaml'
 
 module Squib
   # @api private
@@ -9,9 +10,9 @@ module Squib
     DEFAULTS = {
       'antialias'     => 'best',
       'backend'       => 'memory',
-      'count_format'  => SYSTEM_DEFAULTS[:count_format],
+      'count_format'  => '%02d',
       'custom_colors' => {},
-      'dir'           => SYSTEM_DEFAULTS[:dir],
+      'dir'           => '_output',
       'hint'          => :none,
       'img_dir'       => '.',
       'progress_bars' => false,
@@ -25,6 +26,7 @@ module Squib
       'smart_quotes'  => true,
       'text_hint'     => 'off',
       'warn_ellipsize'=> true,
+      'warn_png_scale'=> true,
     }
 
     #Translate the hints to the methods.
@@ -51,6 +53,7 @@ module Squib
         Squib::logger.info { "  using config: #{file}" }
         yaml = YAML.load_file(file) || {}
       end
+      warn_unrecognized(yaml)
       Conf.new(DEFAULTS.merge(yaml))
     end
 
@@ -106,10 +109,22 @@ module Squib
       @config_hash['warn_ellipsize']
     end
 
+    def warn_png_scale?
+      @config_hash['warn_png_scale']
+    end
+
     private
 
     def normalize_antialias
       @config_hash['antialias'] = ANTIALIAS_OPTS[@config_hash['antialias'].downcase.strip]
+    end
+
+    # Were there any unrecognized options in the config file?
+    def self.warn_unrecognized(yaml)
+      unrec = yaml.keys - DEFAULTS.keys
+      if unrec.any?
+        Squib::logger.warn "Unrecognized configuration option(s): #{unrec.join(',')}"
+      end
     end
 
   end
